@@ -8,124 +8,42 @@ Follow the steps
 2. Use case diagram
 3. Sequence diagram
 
-### Class diagram
+### 1. Class diagram
 
-```plantuml
-@startuml
+Class diagram PlanUML [source](1-class-diagram.md)
+![class-diagram](1-class-diagram.png)
 
-title Class diagram
+### 2. Use case diagram
 
-class Airline {
-    - int id
-    - String code
-    - String name
-    - List <> history
-}
+Use case diagram PlanUML [source](2-use-case-diagram.md)
+![class-diagram](2-use-case-diagram.png)
 
-class Airport {
-    - int id
-    - String threeLetterCode
-    - String name
-    - Address address
-}
+### 3. Sequence diagrams
 
-class Address {
-    - int id
-    - String street
-    - String city
-    - String state
-    - String zipCode
-}
+#### 3.1 Sequence diagrams
 
-class Flight {
-    - int id
-    - String number
-    - int capacity
-    - Airport departureAirport
-    - Airport arrivalAirport
-    - LocalTime departureTime
-    - LocalTime arrivalTime
-}
+Passenger: View list of airports
 
-class FlightInstance {
-    - LocalDate departureDate
-    - LocalDate arrivalDate
-}
+Sequence diagram PlanUML [source](3-1-sequence-diagram.md)
+![class-diagram](3-1-sequence-diagram.png)
 
-class Passenger {
-    - int id
-    - String firsName
-    - String lastName
-    - Date birthday
-    - String email
-}
+#### 3.2 Sequence diagrams
 
-class Staff {
-}
+Passenger: View list of airlines flying out of an airport (search by airport three letter code)
 
-class Pilot {
-}
+Sequence diagram PlanUML [source](3-2-sequence-diagram.md)
+![class-diagram](3-2-sequence-diagram.png)
 
-class Reservation {
-    - int id
-}
+#### 3.3 Sequence diagrams
 
+Agent: View list of airports
 
-class Ticket {
-    - int id
-    - String number
-    - String reservationCode
-}
+Sequence diagram PlanUML [source](3-3-sequence-diagram.md)
+![class-diagram](3-3-sequence-diagram.png)
 
-class Agent {
+#### 3.4 Sequence diagrams
 
-}
+Agent: View list of airlines flying out of an airport (search by airport three letter code)
 
-Airline "1" *- "0..*" Flight : belongs
-Airport "0..*" <-- "1" Flight : arrives & departs
-
-Address "1" <-- "1" Airport : exists
-Address "1" <-- "1" Passenger : reside
-
-FlightInstance "1" --> "0..*" Passenger
-FlightInstance *-- Ticket  : flight ticket
-FlightInstance "1..*" <-- "1..*" Reservation
-Reservation "0..*" <-- "1" Passenger
-
-Flight <|-- FlightInstance
-Passenger <|-- Pilot
-Passenger <|-- Staff
-
-FlightInstance "1" --> "2..*" Pilot
-FlightInstance "1" --> "0..*" Staff
-
-@enduml
-```
-
-### Use case diagram
-
-```plantuml
-@startuml
-left to right direction
-
-actor Passenger
-rectangle PassengerRelatedUseCase{
-    Passenger -- (List airports)
-    Passenger -- (List airlines at certain airport)
-    Passenger -- (List reservations)
-    Passenger -- (Reservation detail)
-    Passenger -- (Make reservation)
-    Passenger -- (Cancel reservation)
-    Passenger -- (Confirm & purchase reservation)
-}
-
-actor Admins
-rectangle AdminsRelatedUseCase{
-    Admins -- (CRUD reservation)
-    Admins -- (CRUD flights)
-    Admins -- (CRUD airports)
-    Admins -- (CRUD airlines)
-}
-
-@enduml
-```
+Sequence diagram PlanUML [source](3-4-sequence-diagram.md)
+![class-diagram](3-4-sequence-diagram.png)
