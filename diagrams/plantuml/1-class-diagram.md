@@ -72,8 +72,8 @@ class Agent {
 
 
 Flight "0..*" --* "1" Airline : belongs
-Airport "1" <-- "1" Flight : arrives
-Airport "1" <-- "1" Flight : departs
+Airport "1" <-- "0..*" Flight : arrives
+Airport "1" <-- "0..*" Flight : departs
 
 Address "1" <-- "1" Airport : exists
 Address "1" <-- "1" Person : reside
