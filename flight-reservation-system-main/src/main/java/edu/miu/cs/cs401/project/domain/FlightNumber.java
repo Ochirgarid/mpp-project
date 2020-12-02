@@ -19,10 +19,18 @@ public class FlightNumber {
         this.setNumber(number);
         this.setCapacity(capacity);
         this.setDepartureTime(departureTime);
-        this.arrivalTime = arrivalTime;
+        this.setArrivalTime(arrivalTime);
         this.departureAirport = departureAirport;
         this.arrivalAirport = arrivalAirport;
         this.id = idCount++;
+    }
+
+    public LocalTime getArrivalTime() {
+        return arrivalTime;
+    }
+
+    public void setArrivalTime(LocalTime arrivalTime) {
+        this.arrivalTime = arrivalTime;
     }
 
     public LocalTime getDepartureTime() {

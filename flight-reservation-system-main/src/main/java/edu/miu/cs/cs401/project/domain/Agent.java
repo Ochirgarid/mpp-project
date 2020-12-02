@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Agent extends Person {
-    private static int idCount = 1;
-    private int id;
+    
     private List<Passenger> passengerList;
 
     public Agent(Address address, String firstName, String lastName, LocalDate birthday, String email) {
