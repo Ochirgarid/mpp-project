@@ -15,14 +15,62 @@ public class Flight {
     private List<Pilot> pilotList;
 
     public Flight(FlightNumber flightNumber, LocalDate departureDate, LocalDate arrivalDate) {
-        this.id = idCount++;
-        this.flightNumber = flightNumber;
-        this.departureDate = departureDate;
-        this.arrivalDate = arrivalDate;
-        this.passengerList = new ArrayList<>();
-        this.crewList = new ArrayList<>();
-        this.pilotList = new ArrayList<>();
+        this.setId(idCount++);
+        this.setFlightNumber(flightNumber);
+        this.setDepartureDate(departureDate);
+        this.setArrivalDate(arrivalDate);
+        this.setPassengerList(new ArrayList<>());
+        this.setCrewList(new ArrayList<>());
+        this.setPilotList(new ArrayList<>());
 
+    }
+
+    public FlightNumber getFlightNumber() {
+        return flightNumber;
+    }
+
+    public void setFlightNumber(FlightNumber flightNumber) {
+        this.flightNumber = flightNumber;
+    }
+
+    public LocalDate getDepartureDate() {
+        return departureDate;
+    }
+
+    public void setDepartureDate(LocalDate departureDate) {
+        this.departureDate = departureDate;
+    }
+
+    public LocalDate getArrivalDate() {
+        return arrivalDate;
+    }
+
+    public void setArrivalDate(LocalDate arrivalDate) {
+        this.arrivalDate = arrivalDate;
+    }
+
+    public List<Passenger> getPassengerList() {
+        return passengerList;
+    }
+
+    public void setPassengerList(List<Passenger> passengerList) {
+        this.passengerList = passengerList;
+    }
+
+    public List<Crew> getCrewList() {
+        return crewList;
+    }
+
+    public void setCrewList(List<Crew> crewList) {
+        this.crewList = crewList;
+    }
+
+    public List<Pilot> getPilotList() {
+        return pilotList;
+    }
+
+    public void setPilotList(List<Pilot> pilotList) {
+        this.pilotList = pilotList;
     }
 
 }

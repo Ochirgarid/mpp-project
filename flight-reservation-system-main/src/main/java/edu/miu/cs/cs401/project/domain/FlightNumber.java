@@ -15,12 +15,44 @@ public class FlightNumber {
 
     public FlightNumber(String number, int capacity, LocalDate departureDate, LocalDate arrivalDate,
             Airport departureAirport, Airport arrivalAirport) {
-        this.number = number;
-        this.capacity = capacity;
-        this.departureDate = departureDate;
-        this.arrivalDate = arrivalDate;
+        this.setNumber(number);
+        this.setCapacity(capacity);
+        this.setDepartureDate(departureDate);
+        this.setArrivalDate(arrivalDate);
         this.departureAirport = departureAirport;
         this.arrivalAirport = arrivalAirport;
         this.id = idCount++;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
+    public LocalDate getArrivalDate() {
+        return arrivalDate;
+    }
+
+    public void setArrivalDate(LocalDate arrivalDate) {
+        this.arrivalDate = arrivalDate;
+    }
+
+    public LocalDate getDepartureDate() {
+        return departureDate;
+    }
+
+    public void setDepartureDate(LocalDate departureDate) {
+        this.departureDate = departureDate;
     }
 }
