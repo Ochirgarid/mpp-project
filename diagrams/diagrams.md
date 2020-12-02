@@ -7,11 +7,11 @@ The steps to create
 3. Sequence diagram
 
 Missing sequence diagrams
-1. Passenger: View list of own reservations [diagram-7](#3.7-Sequence-diagram-7) 
+
+1. Passenger: View list of own reservations [diagram-7](#3.7-Sequence-diagram-7)
 2. Passenger: View details of a reservation (flights, departure times, etc.) [diagram-9](#3.9-Sequence-diagram-9)
 3. Agent: Cancel a reservation [diagram-14](#3.14-Sequence-diagram-14)
 4. Agent: Confirm and purchase a reservation. This will result in multiple tickets (one for each flight in the reservation) [diagram-16](#3.16-Sequence-diagram-16)
-
 
 ## 1. Class diagram
 
