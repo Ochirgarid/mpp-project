@@ -27,7 +27,6 @@ public class ReservationSystemRepositoryImpl implements ReservationSystemReposit
 	private Map<String, Airport> airports = new HashMap<>();
 	private Map<Integer, Passenger> passengers = new HashMap<>();
 	private Map<String, Airline> airlines= new HashMap<>();
-	private Map<String, FlightNumber> flightNumbers= new HashMap<>();
 	private Map<Integer, Pilot> pilots= new HashMap<>();
 	private Map<Integer, Crew> crews= new HashMap<>();
 	private Map<Integer, Agent> agents= new HashMap<>();
@@ -265,15 +264,26 @@ public class ReservationSystemRepositoryImpl implements ReservationSystemReposit
 		al3.addFlightNumber(fn7);
 		al3.addFlightNumber(fn8);
 
-		//flightnumbers
-        flightNumbers.put(fn1.getNumber(), fn1);
-        flightNumbers.put(fn2.getNumber(), fn2);
-        flightNumbers.put(fn3.getNumber(), fn3);
-        flightNumbers.put(fn4.getNumber(), fn4);
-        flightNumbers.put(fn5.getNumber(), fn5);
-        flightNumbers.put(fn6.getNumber(), fn6);
-        flightNumbers.put(fn7.getNumber(), fn7);
-        flightNumbers.put(fn8.getNumber(), fn8);
+
+        // create data for flights on specific date: 2020 Dec 02
+        allFlight.add(new Flight(fn1,LocalDate.of(2020, 12, 02), LocalDate.of(2020, 12, 02)));
+        allFlight.add(new Flight(fn2,LocalDate.of(2020, 12, 02), LocalDate.of(2020, 12, 02)));
+        allFlight.add(new Flight(fn3,LocalDate.of(2020, 12, 02), LocalDate.of(2020, 12, 02)));
+        allFlight.add(new Flight(fn4,LocalDate.of(2020, 12, 02), LocalDate.of(2020, 12, 02)));
+        allFlight.add(new Flight(fn5,LocalDate.of(2020, 12, 02), LocalDate.of(2020, 12, 02)));
+        allFlight.add(new Flight(fn6,LocalDate.of(2020, 12, 02), LocalDate.of(2020, 12, 02)));
+        allFlight.add(new Flight(fn7,LocalDate.of(2020, 12, 02), LocalDate.of(2020, 12, 02)));
+        allFlight.add(new Flight(fn8,LocalDate.of(2020, 12, 02), LocalDate.of(2020, 12, 02)));
+
+        // create data for flights for today
+        allFlight.add(new Flight(fn1,LocalDate.now(), LocalDate.now()));
+        allFlight.add(new Flight(fn2,LocalDate.now(), LocalDate.now()));
+        allFlight.add(new Flight(fn3,LocalDate.now(), LocalDate.now()));
+        allFlight.add(new Flight(fn4,LocalDate.now(), LocalDate.now()));
+        allFlight.add(new Flight(fn5,LocalDate.now(), LocalDate.now()));
+        allFlight.add(new Flight(fn6,LocalDate.now(), LocalDate.now()));
+        allFlight.add(new Flight(fn7,LocalDate.now(), LocalDate.now()));
+
 	}
 
 	@Override
