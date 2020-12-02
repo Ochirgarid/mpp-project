@@ -1,15 +1,14 @@
 ```plantuml
 @startuml
-title 3. View list of airports
-
-Actor Agent
-autonumber
-Agent -> Admin : getAirports()
-activate Admin
-Admin -> Admin : readAirportList()
-activate Admin
-deactivate Admin
-deactivate Admin
+[o-> ReservationSystem : getAirports()
+activate ReservationSystem
+ReservationSystem -> Agent: getAirports()
+activate Agent
+Agent -> Database : readAirportList()
+activate Database
+deactivate Database
+deactivate Agent
+deactivate ReservationSystem
 
 @enduml
 ```

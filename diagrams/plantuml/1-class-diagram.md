@@ -75,6 +75,8 @@ FlightNumber "0..*" --* "1" Airline : belongs
 Airport "1" <-- "0..*" FlightNumber : arrives
 Airport "1" <-- "0..*" FlightNumber : departs
 
+Airport "1" --> "0..*" Airline : approves
+
 Address "1" <-- "1" Airport : exists
 Address "1" <-- "1" Person : reside
 
