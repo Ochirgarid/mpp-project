@@ -1,27 +1,36 @@
 package edu.miu.cs.cs401.project.domain;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class FlightNumber {
     private static int idCount = 0;
     private int id;
     private String number;
     private int capacity;
-    private LocalDate departureDate;
-    private LocalDate arrivalDate;
+    private LocalTime departureTime;
+    private LocalTime arrivalTime;
 
     Airport departureAirport;
     Airport arrivalAirport;
 
-    public FlightNumber(String number, int capacity, LocalDate departureDate, LocalDate arrivalDate,
+    public FlightNumber(String number, int capacity, LocalTime departureTime, LocalTime arrivalTime,
             Airport departureAirport, Airport arrivalAirport) {
         this.setNumber(number);
         this.setCapacity(capacity);
-        this.setDepartureDate(departureDate);
-        this.setArrivalDate(arrivalDate);
+        this.setDepartureTime(departureTime);
+        this.arrivalTime = arrivalTime;
         this.departureAirport = departureAirport;
         this.arrivalAirport = arrivalAirport;
         this.id = idCount++;
+    }
+
+    public LocalTime getDepartureTime() {
+        return departureTime;
+    }
+
+    public void setDepartureTime(LocalTime departureTime) {
+        this.departureTime = departureTime;
     }
 
     public String getNumber() {
@@ -40,19 +49,4 @@ public class FlightNumber {
         this.capacity = capacity;
     }
 
-    public LocalDate getArrivalDate() {
-        return arrivalDate;
-    }
-
-    public void setArrivalDate(LocalDate arrivalDate) {
-        this.arrivalDate = arrivalDate;
-    }
-
-    public LocalDate getDepartureDate() {
-        return departureDate;
-    }
-
-    public void setDepartureDate(LocalDate departureDate) {
-        this.departureDate = departureDate;
-    }
 }
