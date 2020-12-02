@@ -1,5 +1,6 @@
 package edu.miu.cs.cs401.project.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import edu.miu.cs.cs401.project.domain.Agent;
@@ -8,6 +9,7 @@ import edu.miu.cs.cs401.project.domain.Airport;
 import edu.miu.cs.cs401.project.domain.Flight;
 import edu.miu.cs.cs401.project.domain.Passenger;
 import edu.miu.cs.cs401.project.domain.Reservation;
+import edu.miu.cs.cs401.project.repository.RepositoryFactory;
 
 public class ReservationSystemFacadeImpl implements ReservationSystemFacade {
 
@@ -36,15 +38,29 @@ public class ReservationSystemFacadeImpl implements ReservationSystemFacade {
 	}
 
 	@Override
-	public List<Flight> findFlightsFromTo(String departure, String arrival) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Flight> findFlightsFromTo(String departure, String arrival, LocalDate date) {
+		List<Flight> res = null;
+		try {
+			res = (List<Flight>) RepositoryFactory.getReservationSystemRepository()
+					.findFlightsFromTo( departure, arrival, date);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return res;
 	}
 
 	@Override
 	public List<Reservation> findReservationsByPassengerId(Integer passengerId) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Reservation> res = null;
+		try {
+			res = (List<Reservation>) RepositoryFactory.getReservationSystemRepository()
+					.findReservationsByPassengerId(passengerId);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return res;
 	}
 
 	@Override

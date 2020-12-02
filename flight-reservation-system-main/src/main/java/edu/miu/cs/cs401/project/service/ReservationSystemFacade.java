@@ -1,5 +1,6 @@
 package edu.miu.cs.cs401.project.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import edu.miu.cs.cs401.project.domain.Agent;
@@ -19,7 +20,7 @@ public interface ReservationSystemFacade {
 	
 	List<Airline> findAirlinesByAirportCode(String airportCode);
 	
-	List<Flight> findFlightsFromTo(String departure, String arrival);
+	List<Flight> findFlightsFromTo(String departure, String arrival, LocalDate date);
 	
 	List<Reservation> findReservationsByPassengerId(Integer passengerId);
 	

@@ -24,7 +24,7 @@ class Address {
     - String zipCode
 }
 
-class Flight {
+class FlightNumber {
     - int id
     - String number
     - int capacity
@@ -32,7 +32,7 @@ class Flight {
     - LocalTime arrivalTime
 }
 
-class FlightInstance {
+class Flight {
     - LocalDate departureDate
     - LocalDate arrivalDate
 }
@@ -71,27 +71,30 @@ class Agent {
 }
 
 
-Flight "0..*" --* "1" Airline : belongs
-Airport "1" <-- "0..*" Flight : arrives
-Airport "1" <-- "0..*" Flight : departs
+FlightNumber "0..*" --* "1" Airline : belongs
+Airport "1" <-- "0..*" FlightNumber : arrives
+Airport "1" <-- "0..*" FlightNumber : departs
+
+Airport "1" --> "0..*" Airline : approves
 
 Address "1" <-- "1" Airport : exists
 Address "1" <-- "1" Person : reside
 
-FlightInstance "1" --> "0..*" Passenger
-Ticket --* FlightInstance : flight ticket
-FlightInstance "1..*" <-- "1..*" Reservation
+Flight "1" --> "0..*" Passenger
+Ticket --* Flight : flight ticket
+Flight "1..*" <-- "1..*" Reservation
 Reservation "0..*" <-- "1" Passenger
 
-Flight "1" <-- "0..*" FlightInstance
+FlightNumber "1" <-- "0..*" Flight
 Person <|-- Passenger
 Person <|-- Pilot
 Person <|-- Staff
+Person <|-- Agent
 
 Passenger "0..*" <-- "0..*" Agent : make\nreservation\nfor
 
-FlightInstance "1" --> "2..*" Pilot
-FlightInstance "1" --> "0..*" Staff
+Flight "1" --> "2..*" Pilot
+Flight "1" --> "0..*" Staff
 
 @enduml
 ```

@@ -2,7 +2,12 @@ package edu.miu.cs.cs401.project.repository;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import edu.miu.cs.cs401.project.domain.Address;
 import edu.miu.cs.cs401.project.domain.Agent;
@@ -260,7 +265,7 @@ public class ReservationSystemRepositoryImpl implements ReservationSystemReposit
 		al3.addFlightNumber(fn7);
 		al3.addFlightNumber(fn8);
 
-		//flights
+		//flightnumbers
         flightNumbers.put(fn1.getNumber(), fn1);
         flightNumbers.put(fn2.getNumber(), fn2);
         flightNumbers.put(fn3.getNumber(), fn3);
@@ -294,20 +299,22 @@ public class ReservationSystemRepositoryImpl implements ReservationSystemReposit
 
 	@Override
 	public Collection<Airline> findAirlinesByAirportCode(String airportCode) {
-
+		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Collection<Flight> findFlightsFromTo(String departureAirport, String arrivalAirport, LocalDate date) {
-		List<Flight> flights = new ArrayList<>();
-        for (FlightNumber flightNumber : flightNumbers.values()) {
-            if(flightNumber.getDepartureAirport().getCode().equals(departureAirport) &&
-                    flightNumber.getArrivalAirport().getCode().equals(arrivalAirport)) {
-                flights.add(new Flight(flightNumber, date, date));
-            }
-        }
-		return flights;
+	public Collection<Flight> findFlightsFromTo(String departure, String arrival, LocalDate date) {
+		return  allFlight
+				.stream()
+				.filter( f->
+					f.getFlightNumber().getDepartureAirport().getCode().equalsIgnoreCase(departure)
+					&&
+					f.getFlightNumber().getArrivalAirport().getCode().equalsIgnoreCase(arrival)
+					&&
+					f.getDepartureDate().equals(date)
+				)
+				.collect(Collectors.toList());
 	}
 
 	@Override
