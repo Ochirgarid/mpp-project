@@ -1,5 +1,10 @@
 package edu.miu.cs.cs401.project.domain;
 
-public class Crew {
+import java.time.LocalDate;
 
+public class Crew extends Person {
+
+    public Crew(Address address, String firstName, String lastName, LocalDate birthday, String email) {
+        super(address, firstName, lastName, birthday, email);
+    }
 }
