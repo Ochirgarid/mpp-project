@@ -14,6 +14,7 @@ public class Reservation {
 
     public Reservation(List<Flight> flightList) {
 
+        this.agentId = 0;
         this.id = idCount++;
         this.setReservationCode(generateCode());
         this.setFlightList(new ArrayList<Flight>());

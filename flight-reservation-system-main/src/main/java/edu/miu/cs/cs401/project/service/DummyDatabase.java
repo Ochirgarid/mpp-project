@@ -27,7 +27,6 @@ public class DummyDatabase {
     private List <Pilot> allPilot;
     private List <Crew> allCrew;
     private List <Agent> allAgent;
-    private List <Reservation> allReservation;
     private List <Ticket> allTicket;
 
     public DummyDatabase() {
@@ -157,14 +156,12 @@ public class DummyDatabase {
     public List <Flight> getFlights() {
         return this.allFlight;
     }
-    public List <Flight> getReservations() {
-        return this.allReservation;
-    }
+    
     public String getNewTicketCode() {
         String code = "";
 
         for(int i = 0; i < 20; i++) {
-            int x = Math.floor(Math.random() * 10);
+            int x = (int) Math.floor(Math.random() * 10);
             code = code + Integer.toString(x);
         }
 

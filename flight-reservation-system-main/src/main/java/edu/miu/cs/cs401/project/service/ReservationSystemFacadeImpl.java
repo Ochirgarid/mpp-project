@@ -64,8 +64,11 @@ public class ReservationSystemFacadeImpl implements ReservationSystemFacade {
 
 	@Override
 	public Reservation createReservation(Agent agent, Passenger passenger, List<Flight> flights) {
-		// TODO Auto-generated method stub
-		return null;
+		Reservation reservation = new Reservation(flights);
+		reservation.setAgentId(agent.getId());
+		passenger.addReservation(reservation);
+		agent.addPassenger(passenger);
+		return reservation;
 	}
 
 	@Override
@@ -77,7 +80,6 @@ public class ReservationSystemFacadeImpl implements ReservationSystemFacade {
 	@Override
 	public void cancelReservation(Passenger passenger, String reservationCode) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
