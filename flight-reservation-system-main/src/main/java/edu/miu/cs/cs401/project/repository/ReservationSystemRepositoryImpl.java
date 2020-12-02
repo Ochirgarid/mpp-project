@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import edu.miu.cs.cs401.project.domain.Address;
 import edu.miu.cs.cs401.project.domain.Agent;
@@ -263,6 +264,7 @@ public class ReservationSystemRepositoryImpl implements ReservationSystemReposit
 		al3.addFlightNumber(fn6);
 		al3.addFlightNumber(fn7);
 		al3.addFlightNumber(fn8);
+		
 	}
 
 	@Override
@@ -293,15 +295,25 @@ public class ReservationSystemRepositoryImpl implements ReservationSystemReposit
 	}
 
 	@Override
-	public Collection<Flight> findFlightsFromTo(String departure, String arrival) {
-		// TODO Auto-generated method stub
-		return null;
+	public Collection<Flight> findFlightsFromTo(String departure, String arrival, LocalDate date) {
+		return  allFlight
+				.stream()
+				.filter( f-> 
+					f.getFlightNumber().getDepartureAirport().getCode().equalsIgnoreCase(departure)
+					&&
+					f.getFlightNumber().getArrivalAirport().getCode().equalsIgnoreCase(arrival)
+					&&
+					f.getDepartureDate().equals(date)
+				)
+				.collect(Collectors.toList());
 	}
 
 	@Override
 	public Collection<Reservation> findReservationsByPassengerId(Integer passengerId) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Passenger pass = passengers.get(passengerId);
+		
+		return pass.getReservationList();
 	}
 
 	@Override
