@@ -2,11 +2,7 @@ package edu.miu.cs.cs401.project.repository;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import edu.miu.cs.cs401.project.domain.Address;
 import edu.miu.cs.cs401.project.domain.Agent;
@@ -26,7 +22,7 @@ public class ReservationSystemRepositoryImpl implements ReservationSystemReposit
 	private Map<String, Airport> airports = new HashMap<>();
 	private Map<Integer, Passenger> passengers = new HashMap<>();
 	private Map<String, Airline> airlines= new HashMap<>();
-	private Map<String, Flight> flights= new HashMap<>();
+	private Map<String, FlightNumber> flightNumbers= new HashMap<>();
 	private Map<Integer, Pilot> pilots= new HashMap<>();
 	private Map<Integer, Crew> crews= new HashMap<>();
 	private Map<Integer, Agent> agents= new HashMap<>();
@@ -263,6 +259,16 @@ public class ReservationSystemRepositoryImpl implements ReservationSystemReposit
 		al3.addFlightNumber(fn6);
 		al3.addFlightNumber(fn7);
 		al3.addFlightNumber(fn8);
+
+		//flights
+        flightNumbers.put(fn1.getNumber(), fn1);
+        flightNumbers.put(fn2.getNumber(), fn2);
+        flightNumbers.put(fn3.getNumber(), fn3);
+        flightNumbers.put(fn4.getNumber(), fn4);
+        flightNumbers.put(fn5.getNumber(), fn5);
+        flightNumbers.put(fn6.getNumber(), fn6);
+        flightNumbers.put(fn7.getNumber(), fn7);
+        flightNumbers.put(fn8.getNumber(), fn8);
 	}
 
 	@Override
@@ -288,14 +294,20 @@ public class ReservationSystemRepositoryImpl implements ReservationSystemReposit
 
 	@Override
 	public Collection<Airline> findAirlinesByAirportCode(String airportCode) {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 
 	@Override
-	public Collection<Flight> findFlightsFromTo(String departure, String arrival) {
-		// TODO Auto-generated method stub
-		return null;
+	public Collection<Flight> findFlightsFromTo(String departureAirport, String arrivalAirport, LocalDate date) {
+		List<Flight> flights = new ArrayList<>();
+        for (FlightNumber flightNumber : flightNumbers.values()) {
+            if(flightNumber.getDepartureAirport().getCode().equals(departureAirport) &&
+                    flightNumber.getArrivalAirport().getCode().equals(arrivalAirport)) {
+                flights.add(new Flight(flightNumber, date, date));
+            }
+        }
+		return flights;
 	}
 
 	@Override

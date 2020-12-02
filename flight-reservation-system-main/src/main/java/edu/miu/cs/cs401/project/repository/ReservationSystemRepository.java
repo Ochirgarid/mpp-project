@@ -1,5 +1,6 @@
 package edu.miu.cs.cs401.project.repository;
 
+import java.time.LocalDate;
 import java.util.Collection;
 
 import edu.miu.cs.cs401.project.domain.Airline;
@@ -18,7 +19,7 @@ public interface ReservationSystemRepository {
 	
 	Collection<Airline> findAirlinesByAirportCode(String airportCode);
 	
-	Collection<Flight> findFlightsFromTo(String departure, String arrival);
+	Collection<Flight> findFlightsFromTo(String departure, String arrival, LocalDate date);
 	
 	Collection<Reservation> findReservationsByPassengerId(Integer passengerId);
 	
