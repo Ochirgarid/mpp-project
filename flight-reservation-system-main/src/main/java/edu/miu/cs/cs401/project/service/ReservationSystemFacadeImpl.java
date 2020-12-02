@@ -55,8 +55,11 @@ public class ReservationSystemFacadeImpl implements ReservationSystemFacade {
 
 	@Override
 	public Reservation createReservation(Passenger passenger, List<Flight> flights) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Reservation reservation = new Reservation(flights);
+		passenger.addReservation(reservation);
+		return reservation;
+
 	}
 
 	@Override

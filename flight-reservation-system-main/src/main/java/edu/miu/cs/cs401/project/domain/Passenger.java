@@ -23,4 +23,10 @@ public class Passenger extends Person {
         this.reservationList = reservationList;
     }
 
+    public void addReservation(Reservation reservation){
+
+        this.reservationList.add(reservation);
+
+    }
+
 }
