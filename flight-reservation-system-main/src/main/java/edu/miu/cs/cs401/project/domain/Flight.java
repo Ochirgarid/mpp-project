@@ -15,7 +15,7 @@ public class Flight {
     private List<Pilot> pilotList;
 
     public Flight(FlightNumber flightNumber, LocalDate departureDate, LocalDate arrivalDate) {
-        this.setId(idCount++);
+        this.id = idCount++;
         this.setFlightNumber(flightNumber);
         this.setDepartureDate(departureDate);
         this.setArrivalDate(arrivalDate);
