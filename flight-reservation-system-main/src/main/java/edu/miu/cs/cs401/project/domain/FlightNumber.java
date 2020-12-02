@@ -11,8 +11,8 @@ public class FlightNumber {
     private LocalTime departureTime;
     private LocalTime arrivalTime;
 
-    Airport departureAirport;
-    Airport arrivalAirport;
+    private Airport departureAirport;
+    private Airport arrivalAirport;
 
     public FlightNumber(String number, int capacity, LocalTime departureTime, LocalTime arrivalTime,
             Airport departureAirport, Airport arrivalAirport) {
@@ -20,9 +20,25 @@ public class FlightNumber {
         this.setCapacity(capacity);
         this.setDepartureTime(departureTime);
         this.setArrivalTime(arrivalTime);
-        this.departureAirport = departureAirport;
-        this.arrivalAirport = arrivalAirport;
+        this.setDepartureAirport(departureAirport);
+        this.setArrivalAirport(arrivalAirport);
         this.id = idCount++;
+    }
+
+    public Airport getArrivalAirport() {
+        return arrivalAirport;
+    }
+
+    public void setArrivalAirport(Airport arrivalAirport) {
+        this.arrivalAirport = arrivalAirport;
+    }
+
+    public Airport getDepartureAirport() {
+        return departureAirport;
+    }
+
+    public void setDepartureAirport(Airport departureAirport) {
+        this.departureAirport = departureAirport;
     }
 
     public LocalTime getArrivalTime() {

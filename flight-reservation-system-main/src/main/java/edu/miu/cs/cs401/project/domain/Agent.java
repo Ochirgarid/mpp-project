@@ -11,11 +11,6 @@ public class Agent extends Person {
     public Agent(Address address, String firstName, String lastName, LocalDate birthday, String email) {
         super(address, firstName, lastName, birthday, email);
         passengerList = new ArrayList<>();
-        this.id = idCount++;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public void addPassenger(Passenger passenger) {
