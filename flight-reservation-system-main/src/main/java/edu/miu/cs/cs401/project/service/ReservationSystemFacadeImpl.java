@@ -66,15 +66,27 @@ public class ReservationSystemFacadeImpl implements ReservationSystemFacade {
 	}
 
 	@Override
-	public void confirmReservation(String reservationCode) {
+	public void confirmReservation(Passenger passenger, String reservationCode) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
-	public void cancelReservation(String reservationCode) {
+	public void cancelReservation(Passenger passenger, String reservationCode) {
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	@Override
+	public void confirmReservation(Agent agent, String reservationCode) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void cancelReservation(Agent agent, String reservationCode) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

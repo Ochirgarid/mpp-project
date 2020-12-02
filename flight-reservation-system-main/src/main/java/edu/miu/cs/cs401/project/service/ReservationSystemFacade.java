@@ -29,8 +29,12 @@ public interface ReservationSystemFacade {
 	
 	Reservation createReservation(Agent agent, Passenger passenger, List<Flight> flights); // Agent reserves
 	
-	void confirmReservation(String reservationCode);
+	void confirmReservation(Passenger passenger, String reservationCode);
 	
-	void cancelReservation(String reservationCode);
+	void cancelReservation(Passenger passenger, String reservationCode);
+
+	void confirmReservation(Agent agent, String reservationCode);
+	
+	void cancelReservation(Agent agent, String reservationCode);
 	
 }
