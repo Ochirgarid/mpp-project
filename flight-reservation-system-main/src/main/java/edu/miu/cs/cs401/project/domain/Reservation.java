@@ -91,6 +91,4 @@ public class Reservation {
         }
         status = CONFIRMED_PURCHASED;
     }
-
-
 }

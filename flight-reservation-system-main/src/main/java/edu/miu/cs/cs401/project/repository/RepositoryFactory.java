@@ -4,7 +4,6 @@ public class RepositoryFactory {
 	
 	private static ReservationSystemRepository reservationSystemRepository;
 
-
 	public static ReservationSystemRepository getReservationSystemRepository() throws Exception {
 		if(reservationSystemRepository == null){
 			reservationSystemRepository = new ReservationSystemRepositoryImpl();

@@ -34,8 +34,8 @@ public interface ReservationSystemFacade {
 	
 	void cancelReservation(Passenger passenger, String reservationCode) throws Exception;
 
-	void confirmReservation(Agent agent, String reservationCode);
+	void confirmReservation(Agent agent, String reservationCode) throws Exception;
 	
-	void cancelReservation(Agent agent, String reservationCode);
+	void cancelReservation(Agent agent, String reservationCode) throws Exception;
 	
 }
