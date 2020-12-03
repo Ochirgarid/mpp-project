@@ -137,22 +137,13 @@ public class ReservationSystemFacadeImpl implements ReservationSystemFacade {
 		reservation.setAgentId(agent.getId());
 		passenger.addReservation(reservation);
 		agent.addPassenger(passenger);
+		reservation.setStatus(Reservation.CREATED);
 		return reservation;
 	}
 
 	@Override
 	public void confirmReservation(Passenger passenger, String reservationCode) throws Exception {
-		Reservation reservation =null;
-		for(Reservation res : passenger.getReservationList()) {
-			if(res.getReservationCode().equals(reservationCode)) {
-				reservation = res;
-				break;
-			}
-		}
-		if(reservation == null) {
-			throw new Exception("Reservation code: " + reservationCode + " not found");
-		}
-		reservation.confirmAndPurchase();
+		passenger.confirmReservation(reservationCode);
 	}
 
 	@Override
@@ -161,13 +152,13 @@ public class ReservationSystemFacadeImpl implements ReservationSystemFacade {
 	}
 
 	@Override
-	public void confirmReservation(Agent agent, String reservationCode) {
-
+	public void confirmReservation(Agent agent, String reservationCode) throws Exception {
+		agent.confirmReservation(reservationCode);
 	}
 
 	@Override
-	public void cancelReservation(Agent agent, String reservationCode) {
-		// TODO Auto-generated method stub
+	public void cancelReservation(Agent agent, String reservationCode) throws Exception {
+		agent.cancelReservation(reservationCode);
 
 	}
 

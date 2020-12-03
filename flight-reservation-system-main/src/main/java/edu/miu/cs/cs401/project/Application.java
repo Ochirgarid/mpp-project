@@ -2,6 +2,7 @@ package edu.miu.cs.cs401.project;
 
 import edu.miu.cs.cs401.project.domain.*;
 import edu.miu.cs.cs401.project.repository.RepositoryFactory;
+import edu.miu.cs.cs401.project.repository.ReservationSystemRepository;
 import edu.miu.cs.cs401.project.service.ReservationSystemFacade;
 import edu.miu.cs.cs401.project.service.ReservationSystemFacadeImpl;
 
@@ -9,6 +10,20 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class Application {
+	private static ReservationSystemRepository reservationSystemRepository;
+	private static ReservationSystemFacade reservationSystem;
+
+	static {
+		try {
+			reservationSystemRepository = RepositoryFactory.getReservationSystemRepository();
+			reservationSystem = new ReservationSystemFacadeImpl();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public Application() throws Exception {
+	}
 
 	public static void main(String[] args) throws Exception {
 		System.out.println("Airline Reservation System");
@@ -48,12 +63,20 @@ public class Application {
 
 
 		List<Flight> flightsFromCIDToCLTToday = RepositoryFactory.getReservationSystemRepository().findFlightsFromTo("CID", "CLT", LocalDate.now());
+		passengerConfirm_andCancel_Reservation();
+
+		agentConfirm_andCancel_Reservation();
+
+	}
+
+	private static void passengerConfirm_andCancel_Reservation() throws Exception {
+		List<Flight> flightsFromCIDToCLTToday = reservationSystemRepository.findFlightsFromTo("CID", "CLT", LocalDate.now());
 		System.out.println("Total flights from CID to CLT today: " + flightsFromCIDToCLTToday.size());
 
 		// create two reservations
-		Passenger p = RepositoryFactory.getReservationSystemRepository().findPassengerById(1);
+		Passenger p = reservationSystemRepository.findPassengerById(1);
 
-		
+		ReservationSystemFacade reservationSystem = new ReservationSystemFacadeImpl();
 		Reservation reservation1 = reservationSystem.createReservation(p, flightsFromCIDToCLTToday);
 		Reservation reservation2 = reservationSystem.createReservation(p, flightsFromCIDToCLTToday);
 
@@ -72,8 +95,35 @@ public class Application {
 		System.out.println("Before the Passenger cancel reservation2. Status: " + reservation2.getStatusDetail());
 		reservationSystem.cancelReservation(p, reservation2.getReservationCode());
 		System.out.println("After the Passenger cancel reservation2. Status: " + reservation2.getStatusDetail());
-
-
 	}
 
+	private static void agentConfirm_andCancel_Reservation() throws Exception {
+		List<Flight> flightsFromCIDToCLTToday = reservationSystemRepository.findFlightsFromTo("CID", "CLT", LocalDate.now());
+		System.out.println("Total flights from CID to CLT today: " + flightsFromCIDToCLTToday.size());
+
+		// create two reservations
+		Passenger p = reservationSystemRepository.findPassengerById(1);
+		Agent agent = new Agent(new Address(), "","",LocalDate.of(1989,2, 3),"");
+
+		Reservation reservation3 = reservationSystem.createReservation(agent, p, flightsFromCIDToCLTToday);
+		Reservation reservation4 = reservationSystem.createReservation(agent, p, flightsFromCIDToCLTToday);
+
+		// agent confirm reservation3
+		System.out.println("-------------------- agent confirm reservation3 -------------------------------");
+		System.out.println("agentId: " + agent);
+		System.out.println("Before the Agent confirm reservation3. Status: " + reservation3.getStatusDetail());
+		reservationSystem.confirmReservation(agent, reservation3.getReservationCode());
+		System.out.println("After the Agent confirm the reservation3. Status: " + reservation3.getStatusDetail());
+		System.out.println("---- list tickets of the reservation3: ");
+		for(Ticket t : reservation3.getTicketList()) {
+			System.out.println("	" + t);
+		}
+
+		// agent cancel reservation4
+		System.out.println("-------------------- agent cancel reservation4 -------------------------------");
+		System.out.println("agentId: " + agent);
+		System.out.println("Before the Agent cancel reservation4. Status: " + reservation4.getStatusDetail());
+		reservationSystem.cancelReservation(agent, reservation4.getReservationCode());
+		System.out.println("After the Agent cancel reservation4. Status: " + reservation4.getStatusDetail());
+	}
 }

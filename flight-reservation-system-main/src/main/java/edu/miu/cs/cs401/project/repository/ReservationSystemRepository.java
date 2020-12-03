@@ -25,5 +25,4 @@ public interface ReservationSystemRepository {
 	Passenger findPassengerById(int id);
 
 	Agent findAgentById(int id);
-	
 }
