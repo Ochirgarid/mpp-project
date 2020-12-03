@@ -62,20 +62,19 @@ public class Application {
 			System.out.println(a.toString());
 		}
 
+//		passengerConfirm_andCancel_Reservation();
+//
+//		agentConfirm_andCancel_Reservation();
 
-		List<Flight> flightsFromCIDToCLTToday = RepositoryFactory.getReservationSystemRepository().findFlightsFromTo("CID", "CLT", LocalDate.now());
-		passengerConfirm_andCancel_Reservation();
-
-		agentConfirm_andCancel_Reservation();
-
-		agentGetPassengerAndReservation();
+//		agentGetPassengerAndReservation();
 
 		agentFindPassengerAndReservation();
 
+		findReservationsByPassengerId();
 	}
 
 	private static void passengerConfirm_andCancel_Reservation() throws Exception {
-		List<Flight> flightsFromCIDToCLTToday = reservationSystemRepository.findFlightsFromTo("CID", "CLT", LocalDate.now());
+		List<Flight> flightsFromCIDToCLTToday = reservationSystem.findFlightsFromTo("CID", "CLT", LocalDate.now());
 		System.out.println("Total flights from CID to CLT today: " + flightsFromCIDToCLTToday.size());
 
 		// create two reservations
@@ -145,7 +144,6 @@ public class Application {
 
 		reservationSystem.viewReservationDetails(11, reservation3.getReservationCode());
 		reservationSystem.viewReservationDetails(11, reservation4.getReservationCode());
-
 	}
 
 	private static void agentFindPassengerAndReservation() throws Exception {
@@ -171,8 +169,20 @@ public class Application {
 		}
 
 		//reservationSystem.viewReservationDetails(11, reservation4.getReservationCode());
+	}
 
+	private static void findReservationsByPassengerId() {
+		System.out.println("-------------------- find Reservations By PassengerId -------------------------------");
+		Passenger p = reservationSystemRepository.findPassengerById(1);
+		List<Flight> flightsFromCIDToCLTToday = reservationSystemRepository.findFlightsFromTo("CID", "CLT", LocalDate.now());
 
+		Reservation reservation3 = reservationSystem.createReservation(p, flightsFromCIDToCLTToday);
+		Reservation reservation4 = reservationSystem.createReservation(p, flightsFromCIDToCLTToday);
+		List<Reservation> reservationList = reservationSystem.findReservationsByPassengerId(p.getId());
+		System.out.println("---- list reservations of the person");
+		for(Reservation r : reservationList) {
+			System.out.println("	" + r);
+		}
 	}
 
 }
