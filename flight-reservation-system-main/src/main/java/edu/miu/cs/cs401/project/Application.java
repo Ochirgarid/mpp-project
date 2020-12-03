@@ -138,7 +138,7 @@ public class Application {
 		Agent agent = reservationSystemRepository.findAgentById(11);
 
 		Reservation reservation3 = reservationSystem.createReservation(agent, p, flightsFromCIDToCLTToday);
-		Reservation reservation4 = reservationSystem.createReservation(agent, p2, flightsFromCIDToCLTToday);
+		Reservation reservation4 = reservationSystem.createReservation(agent, p, flightsFromCIDToCLTToday);
 
 		reservationSystem.viewReservationDetails(11, reservation3.getReservationCode());
 		reservationSystem.viewReservationDetails(11, reservation4.getReservationCode());

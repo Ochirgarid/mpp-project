@@ -3,6 +3,7 @@ package edu.miu.cs.cs401.project.service;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import edu.miu.cs.cs401.project.domain.*;
 import edu.miu.cs.cs401.project.repository.RepositoryFactory;
@@ -137,7 +138,15 @@ public class ReservationSystemFacadeImpl implements ReservationSystemFacade {
 		Reservation reservation = new Reservation(flights);
 		reservation.setAgentId(agent.getId());
 		passenger.addReservation(reservation);
-		agent.addPassenger(passenger);
+		boolean check = false;
+		for (int i = 0; i < agent.getPassengerList().size(); i++){
+			if (agent.getPassengerList().get(i).getId() == passenger.getId()){
+				check = true;
+			}
+		}
+		if (check == false){
+			agent.addPassenger(passenger);
+		}
 		reservation.setStatus(Reservation.CREATED);
 		return reservation;
 	}
