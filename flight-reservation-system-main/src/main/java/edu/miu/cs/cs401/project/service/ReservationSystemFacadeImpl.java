@@ -112,7 +112,8 @@ public class ReservationSystemFacadeImpl implements ReservationSystemFacade {
 		List<Passenger> passengerList = repo.findAgentById(agentCode).getPassengerList();
 
 		for (int i = 0; i < passengerList.size(); i++){
-			List<Reservation> reservationList = repo.findReservationsByPassengerId(passengerList.get(i).getId());
+			//List<Reservation> reservationList = repo.findReservationsByPassengerId(passengerList.get(i).getId());
+			List<Reservation> reservationList = passengerList.get(i).getReservationList();
 			for (int j = 0; j < reservationList.size(); j++){
 				if (reservationList.get(j).getReservationCode().equalsIgnoreCase(reservationCode)){
 					System.out.println(reservationList.get(j).toString());

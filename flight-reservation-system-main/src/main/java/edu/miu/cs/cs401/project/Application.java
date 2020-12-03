@@ -134,12 +134,14 @@ public class Application {
 		System.out.println("-------------------- agent views reservation -------------------------------");
 		List<Flight> flightsFromCIDToCLTToday = reservationSystemRepository.findFlightsFromTo("CID", "CLT", LocalDate.now());
 		Passenger p = reservationSystemRepository.findPassengerById(1);
+		Passenger p2 = reservationSystemRepository.findPassengerById(2);
 		Agent agent = reservationSystemRepository.findAgentById(11);
 
 		Reservation reservation3 = reservationSystem.createReservation(agent, p, flightsFromCIDToCLTToday);
-		Reservation reservation4 = reservationSystem.createReservation(agent, p, flightsFromCIDToCLTToday);
+		Reservation reservation4 = reservationSystem.createReservation(agent, p2, flightsFromCIDToCLTToday);
 
 		reservationSystem.viewReservationDetails(11, reservation3.getReservationCode());
+		reservationSystem.viewReservationDetails(11, reservation4.getReservationCode());
 
 
 	}
