@@ -73,4 +73,14 @@ public class FlightNumber {
         this.capacity = capacity;
     }
 
+    @Override
+    public String toString() {
+        return "FlightNumber{" +
+                "number='" + number + '\'' +
+                ", departureTime=" + departureTime +
+                ", arrivalTime=" + arrivalTime +
+                ", departureAirport=" + departureAirport +
+                ", arrivalAirport=" + arrivalAirport +
+                '}';
+    }
 }

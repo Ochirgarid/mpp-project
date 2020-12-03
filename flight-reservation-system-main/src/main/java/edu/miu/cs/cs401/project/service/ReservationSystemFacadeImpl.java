@@ -3,12 +3,7 @@ package edu.miu.cs.cs401.project.service;
 import java.time.LocalDate;
 import java.util.List;
 
-import edu.miu.cs.cs401.project.domain.Agent;
-import edu.miu.cs.cs401.project.domain.Airline;
-import edu.miu.cs.cs401.project.domain.Airport;
-import edu.miu.cs.cs401.project.domain.Flight;
-import edu.miu.cs.cs401.project.domain.Passenger;
-import edu.miu.cs.cs401.project.domain.Reservation;
+import edu.miu.cs.cs401.project.domain.*;
 import edu.miu.cs.cs401.project.repository.RepositoryFactory;
 
 public class ReservationSystemFacadeImpl implements ReservationSystemFacade {
@@ -71,8 +66,8 @@ public class ReservationSystemFacadeImpl implements ReservationSystemFacade {
 
 	@Override
 	public Reservation createReservation(Passenger passenger, List<Flight> flights) {
-		
 		Reservation reservation = new Reservation(flights);
+		reservation.setStatus(Reservation.CREATED);
 		passenger.addReservation(reservation);
 		return reservation;
 
@@ -88,19 +83,27 @@ public class ReservationSystemFacadeImpl implements ReservationSystemFacade {
 	}
 
 	@Override
-	public void confirmReservation(Passenger passenger, String reservationCode) {
-		// TODO Auto-generated method stub
-
+	public void confirmReservation(Passenger passenger, String reservationCode) throws Exception {
+		Reservation reservation =null;
+		for(Reservation res : passenger.getReservationList()) {
+			if(res.getReservationCode().equals(reservationCode)) {
+				reservation = res;
+				break;
+			}
+		}
+		if(reservation == null) {
+			throw new Exception("Reservation code: " + reservationCode + " not found");
+		}
+		reservation.confirmAndPurchase();
 	}
 
 	@Override
-	public void cancelReservation(Passenger passenger, String reservationCode) {
-		// TODO Auto-generated method stub
+	public void cancelReservation(Passenger passenger, String reservationCode) throws Exception {
+		passenger.cancelReservation(reservationCode);
 	}
 
 	@Override
 	public void confirmReservation(Agent agent, String reservationCode) {
-		// TODO Auto-generated method stub
 
 	}
 
