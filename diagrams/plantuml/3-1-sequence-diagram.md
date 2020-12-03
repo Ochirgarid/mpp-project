@@ -1,15 +1,20 @@
 ```plantuml
 @startuml
+
+Actor Passenger
+
 autonumber
-[o-> ReservationSystem : getAirports()
+Passenger-> ReservationSystem : findAllAirports()
 activate ReservationSystem
-ReservationSystem -> Passenger: getAirports()
-activate Passenger
-Passenger -> Database : readAirportList()
-activate Database
-deactivate Database
-deactivate Passenger
-deactivate ReservationSystem
+ReservationSystem -> ReservationSystemRepository: findAllAirports()
+activate ReservationSystemRepository
+ReservationSystemRepository -> ReservationSystemRepository : findAllAirports()
+
+activate ReservationSystemRepository
+deactivate ReservationSystemRepository
+deactivate ReservationSystemRepository
+
+ReservationSystem -> Passenger: List<Airport>
 
 @enduml
 ```

@@ -58,8 +58,9 @@ public class ReservationSystemFacadeTest {
 	
 	//@Test
 	public void findAirportsByCity(){
-		String city = "Chicago";
-		
+		String city = reservationSystemRepository.getSampleCity();
+		System.out.println("Sample city:" + city);
+
 		List<Airport> airport = resSystemFacade.findAirportsByCity(city);
 		
 		System.out.println("size: "+airport.size());
@@ -68,8 +69,14 @@ public class ReservationSystemFacadeTest {
 	}
 	
 	//@Test
-	public void findAirlinesByAirportCode(String airportCode){
+	public void findAirlinesByAirportCode(){
+		String airportCode = "CID";
 		
+		List <Airline> departingAirlines = resSystemFacade.findAirlinesByAirportCode(airportCode);
+		System.out.println("size: " + departingAirlines.size());
+		assertNotNull(departingAirlines);
+		assertFalse("list of airlines is empty", departingAirlines.isEmpty());
+	
 	}
 	
 	//@Test

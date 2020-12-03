@@ -106,7 +106,8 @@ Sequence diagram PlantUML [source](plantuml/3-12-sequence-diagram.md)
 
 Passenger: Cancel a reservation
 
-![Sequence diagram-13](images/3-13-cancel_reservation.png)
+Sequence diagram PlantUML [source](plantuml/3-13-sequence-diagram.md)
+![Sequence diagram-13](images/3-13-sequence-diagram.png)
 
 ## 3.14 Sequence diagram-14
 
