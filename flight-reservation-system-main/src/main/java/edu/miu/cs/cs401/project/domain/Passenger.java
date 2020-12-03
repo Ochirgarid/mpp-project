@@ -57,4 +57,11 @@ public class Passenger extends Person {
         }
         reservation.confirmAndPurchase();
     }
+
+	@Override
+	public String toString() {
+		return "Passenger [reservationList=" + reservationList + "]";
+	}
+    
+    
 }

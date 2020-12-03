@@ -186,16 +186,27 @@ public class Application {
 
 	private static void findReservationsByPassengerId() {
 		System.out.println("-------------------- find Reservations By PassengerId -------------------------------");
+		Integer passengerId = 1;
 		Passenger p = reservationSystemRepository.findPassengerById(1);
 		List<Flight> flightsFromCIDToCLTToday = reservationSystemRepository.findFlightsFromTo("CID", "CLT", LocalDate.now());
 
 		Reservation reservation3 = reservationSystem.createReservation(p, flightsFromCIDToCLTToday);
 		Reservation reservation4 = reservationSystem.createReservation(p, flightsFromCIDToCLTToday);
 		List<Reservation> reservationList = reservationSystem.findReservationsByPassengerId(p.getId());
-		System.out.println("---- list reservations of the person");
+		System.out.println("---- list reservations of the person with id: "+passengerId);
 		for(Reservation r : reservationList) {
 			System.out.println("	" + r);
 		}
+		
+		findReservationsDetails(reservationList.get(0).getReservationCode(), reservationList);
+		
 	}
 
+	private static void findReservationsDetails(String code, List<Reservation> reservations) {
+		System.out.println("-------------------- find Reservation '"+code+"' Details -------------------------------");
+		Reservation reservation = reservations.stream()
+				.filter(r-> r.getReservationCode().equalsIgnoreCase(code))
+				.findFirst().get();
+		System.out.println(reservation.toString());
+	}
 }

@@ -37,7 +37,7 @@ public class ReservationSystemRepositoryImpl implements ReservationSystemReposit
 	private Map<Integer, Agent> agents= new HashMap<>();
 	private Map<String, Ticket> tickets= new HashMap<>();
 
-	ReservationSystemRepositoryImpl() throws Exception {
+	public ReservationSystemRepositoryImpl() throws Exception {
 		super();
 		setupAirports();
         setupPassengers();
@@ -245,7 +245,6 @@ public class ReservationSystemRepositoryImpl implements ReservationSystemReposit
 
 	@Override
 	public List<Reservation> findReservationsByPassengerId(Integer passengerId) {
-
 		return  passengers.get(passengerId).getReservationList();
 	}
 
