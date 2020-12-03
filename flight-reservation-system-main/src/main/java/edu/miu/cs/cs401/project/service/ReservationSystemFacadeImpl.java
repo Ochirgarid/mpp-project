@@ -88,7 +88,7 @@ public class ReservationSystemFacadeImpl implements ReservationSystemFacade {
 		return res;
 	}
 
-	public HashMap<Passenger, List<Reservation>> findReservationsByAgentCode(int agentCode){
+	public HashMap<Passenger, List<Reservation>> findReservationsByAgentCode(int agentCode) throws Exception {
 
 		ReservationSystemRepository repo = RepositoryFactory.getReservationSystemRepository();
 
@@ -105,7 +105,7 @@ public class ReservationSystemFacadeImpl implements ReservationSystemFacade {
 
 	}
 
-	public void viewReservationDetails(int agentCode, String reservationCode){
+	public void viewReservationDetails(int agentCode, String reservationCode) throws Exception {
 
 		ReservationSystemRepository repo = RepositoryFactory.getReservationSystemRepository();
 

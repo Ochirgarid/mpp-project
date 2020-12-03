@@ -25,13 +25,13 @@ public interface ReservationSystemFacade {
 	
 	List<Reservation> findReservationsByPassengerId(Integer passengerId);
 
-	HashMap<Passenger, List<Reservation>> findReservationsByAgentCode(int agentCode);
+	HashMap<Passenger, List<Reservation>> findReservationsByAgentCode(int agentCode) throws Exception;
 	
 	Reservation createReservation(Passenger passenger, List<Flight> flights); // Passenger reserves
 	
 	Reservation createReservation(Agent agent, Passenger passenger, List<Flight> flights); // Agent reserves
 
-	void viewReservationDetails(int agentCode, String reservationCode);
+	void viewReservationDetails(int agentCode, String reservationCode) throws Exception;
 	
 	void confirmReservation(Passenger passenger, String reservationCode) throws Exception;
 	

@@ -20,7 +20,7 @@ public interface ReservationSystemRepository {
 
 	List<Reservation> findReservationsByPassengerId(Integer passengerId);
 	
-	List<Passenger> findPassengersByAgentCode(String agentCode);
+	List<Passenger> findPassengersByAgentCode(int agentCode);
 
 	Passenger findPassengerById(int id);
 
