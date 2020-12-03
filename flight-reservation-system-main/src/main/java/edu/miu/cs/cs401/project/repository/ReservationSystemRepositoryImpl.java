@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -253,4 +254,9 @@ public class ReservationSystemRepositoryImpl implements ReservationSystemReposit
     public Passenger findPassengerById(int id) {
         return passengers.get(id);
     }
+
+	@Override
+	public Agent findAgentById(int id) {
+		return agents.get(id);
+	}
 }

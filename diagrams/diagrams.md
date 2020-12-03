@@ -8,10 +8,8 @@ The steps to create
 
 Missing sequence diagrams
 
-1. Passenger: View list of own reservations [diagram-7](#3.7-Sequence-diagram-7)
-2. Passenger: View details of a reservation (flights, departure times, etc.) [diagram-9](#3.9-Sequence-diagram-9)
-3. Agent: Cancel a reservation [diagram-14](#3.14-Sequence-diagram-14)
-4. Agent: Confirm and purchase a reservation. This will result in multiple tickets (one for each flight in the reservation) [diagram-16](#3.16-Sequence-diagram-16)
+1. Agent: Cancel a reservation [diagram-14](#3.14-Sequence-diagram-14)
+2. Agent: Confirm and purchase a reservation. This will result in multiple tickets (one for each flight in the reservation) [diagram-16](#3.16-Sequence-diagram-16)
 
 ## 1. Class diagram
 
@@ -66,7 +64,10 @@ Agent: View list of flights between a departure and destination for a date
 ![Sequence diagram-6](images/3-6-agent-search-flights.png)
 
 ## 3.7 Sequence diagram-7
+
 Passenger: View list of own reservations
+
+![Sequence diagram-7](images/3-7-sequence-diagram-view-reservations.png)
 
 ## 3.8 Sequence diagram-8
 
@@ -75,7 +76,11 @@ Agent: View list of passengers and reservations made for them â€œby this agentâ€
 Sequence diagram PlantUML [source](plantuml/3-8-sequence-diagram.md)
 ![Sequence diagram-8](images/3-8-sequence-diagram.png)
 ## 3.9 Sequence diagram-9
+
 Passenger: View details of a reservation (flights, departure times, etc.)
+
+Sequence diagram PlantUML [source](plantuml/3-9-sequence-diagram.md)
+![Sequence diagram-9](images/3-9-sequence-diagram.png)
 
 ## 3.10 Sequence diagram-10
 
