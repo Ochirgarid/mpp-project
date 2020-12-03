@@ -239,11 +239,10 @@ public class ReservationSystemRepositoryImpl implements ReservationSystemReposit
 				.collect(Collectors.toList());
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<Reservation> findReservationsByPassengerId(Integer passengerId) {
 		
-		return (List<Reservation>) passengers.get(passengerId);
+		return  passengers.get(passengerId).getReservationList();
 	}
 
 	@Override
