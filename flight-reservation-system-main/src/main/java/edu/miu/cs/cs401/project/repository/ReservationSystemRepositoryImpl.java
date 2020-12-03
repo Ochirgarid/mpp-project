@@ -2,32 +2,20 @@ package edu.miu.cs.cs401.project.repository;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
-import edu.miu.cs.cs401.project.domain.Address;
-import edu.miu.cs.cs401.project.domain.Agent;
-import edu.miu.cs.cs401.project.domain.Airline;
-import edu.miu.cs.cs401.project.domain.Airport;
-import edu.miu.cs.cs401.project.domain.Crew;
-import edu.miu.cs.cs401.project.domain.Flight;
-import edu.miu.cs.cs401.project.domain.FlightNumber;
-import edu.miu.cs.cs401.project.domain.Passenger;
-import edu.miu.cs.cs401.project.domain.Pilot;
-import edu.miu.cs.cs401.project.domain.Reservation;
-import edu.miu.cs.cs401.project.domain.Ticket;
+import edu.miu.cs.cs401.project.domain.*;
 
 public class ReservationSystemRepositoryImpl implements ReservationSystemRepository {
 	
 	private Map<String, Airport> airportsByCity = new HashMap<>();
-	private Map<String, Airport> airports = new HashMap<>();
+	private Map<String, Airport> airports = new HashMap<String,Airport>();
 	private Map<Integer, Passenger> passengers = new HashMap<>();
 	private Map<String, Airline> airlines= new HashMap<>();
-	private Map<Integer, Pilot> pilots= new HashMap<>();
+    private List <Flight> allFlight = new ArrayList<>();
+
+    private Map<Integer, Pilot> pilots= new HashMap<>();
 	private Map<Integer, Crew> crews= new HashMap<>();
 	private Map<Integer, Agent> agents= new HashMap<>();
 	private Map<String, Ticket> tickets= new HashMap<>();
@@ -37,7 +25,6 @@ public class ReservationSystemRepositoryImpl implements ReservationSystemReposit
 	private List <Airline> allAirlines;
     private List <Airport> allAirports;
     private List <FlightNumber> allFlightNumbers;
-    private List <Flight> allFlight;
     private List <Passenger> allPassenger;
     private List <Pilot> allPilot;
     private List <Crew> allCrew;
@@ -287,8 +274,8 @@ public class ReservationSystemRepositoryImpl implements ReservationSystemReposit
 	}
 
 	@Override
-	public Collection<Airport> findAllAirports() {
-		return airports.values();
+	public List<Airport> findAllAirports() {
+		return new ArrayList(airports.values());
 	}
 
 	@Override
@@ -302,19 +289,19 @@ public class ReservationSystemRepositoryImpl implements ReservationSystemReposit
 	}
 
 	@Override
-	public Collection<Airport> findAirportsByCity(String city) {
+	public List<Airport> findAirportsByCity(String city) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Collection<Airline> findAirlinesByAirportCode(String airportCode) {
+	public List<Airline> findAirlinesByAirportCode(String airportCode) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Collection<Flight> findFlightsFromTo(String departure, String arrival, LocalDate date) {
+	public List<Flight> findFlightsFromTo(String departure, String arrival, LocalDate date) {
 		return  allFlight
 				.stream()
 				.filter( f->
@@ -328,15 +315,19 @@ public class ReservationSystemRepositoryImpl implements ReservationSystemReposit
 	}
 
 	@Override
-	public Collection<Reservation> findReservationsByPassengerId(Integer passengerId) {
+	public List<Reservation> findReservationsByPassengerId(Integer passengerId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Collection<Passenger> findPassengersByAgentCode(String agentCode) {
+	public List<Passenger> findPassengersByAgentCode(String agentCode) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+    @Override
+    public Passenger findPassengerById(int id) {
+        return passengers.get(id);
+    }
 }

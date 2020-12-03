@@ -2,27 +2,26 @@ package edu.miu.cs.cs401.project.repository;
 
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
 
-import edu.miu.cs.cs401.project.domain.Airline;
-import edu.miu.cs.cs401.project.domain.Airport;
-import edu.miu.cs.cs401.project.domain.Flight;
-import edu.miu.cs.cs401.project.domain.Passenger;
-import edu.miu.cs.cs401.project.domain.Reservation;
+import edu.miu.cs.cs401.project.domain.*;
 
 public interface ReservationSystemRepository {
 	
-	Collection<Airport> findAllAirports();
+	List<Airport> findAllAirports();
 	
 	Airport findAirportByAirportCode(String airportCode);
+
+	List<Airport> findAirportsByCity(String city); // Airport(s) of a city, e.g. Chicago has two major airports
+
+	List<Airline> findAirlinesByAirportCode(String airportCode);
+
+	List<Flight> findFlightsFromTo(String departure, String arrival, LocalDate date);
+
+	List<Reservation> findReservationsByPassengerId(Integer passengerId);
 	
-	Collection<Airport> findAirportsByCity(String city); // Airport(s) of a city, e.g. Chicago has two major airports
-	
-	Collection<Airline> findAirlinesByAirportCode(String airportCode);
-	
-	Collection<Flight> findFlightsFromTo(String departure, String arrival, LocalDate date);
-	
-	Collection<Reservation> findReservationsByPassengerId(Integer passengerId);
-	
-	Collection<Passenger> findPassengersByAgentCode(String agentCode);
+	List<Passenger> findPassengersByAgentCode(String agentCode);
+
+	Passenger findPassengerById(int id);
 	
 }
