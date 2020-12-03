@@ -91,7 +91,7 @@ public class Application {
 		System.out.println("Total flights from CID to CLT today: " + flightsFromCIDToCLTToday.size());
 
 		// create two reservations
-		Passenger p = reservationSystemRepository.findPassengerById(1);
+		Passenger p = new Passenger(new Address(), "John", "Dan", LocalDate.of(1990, 12, 1) , "JohnDan@gmail.com");
 
 		ReservationSystemFacade reservationSystem = new ReservationSystemFacadeImpl();
 		Reservation reservation1 = reservationSystem.createReservation(p, flightsFromCIDToCLTToday);
@@ -119,7 +119,7 @@ public class Application {
 		System.out.println("Total flights from CID to CLT today: " + flightsFromCIDToCLTToday.size());
 
 		// create two reservations
-		Passenger p = reservationSystemRepository.findPassengerById(1);
+		Passenger p = new Passenger(new Address(), "John", "Dan", LocalDate.of(1990, 12, 1) , "JohnDan@gmail.com");
 		Agent agent = new Agent(new Address(), "","",LocalDate.of(1989,2, 3),"");
 
 		Reservation reservation3 = reservationSystem.createReservation(agent, p, flightsFromCIDToCLTToday);
@@ -148,7 +148,7 @@ public class Application {
 
 		System.out.println("-------------------- agent views reservation -------------------------------");
 		List<Flight> flightsFromCIDToCLTToday = reservationSystemRepository.findFlightsFromTo("CID", "CLT", LocalDate.now());
-		Passenger p = reservationSystemRepository.findPassengerById(1);
+		Passenger p = new Passenger(new Address(), "John", "Dan", LocalDate.of(1990, 12, 1) , "JohnDan@gmail.com");
 		Passenger p2 = reservationSystemRepository.findPassengerById(2);
 		Agent agent = reservationSystemRepository.findAgentById(11);
 

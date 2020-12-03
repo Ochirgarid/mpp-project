@@ -77,6 +77,7 @@ public class FlightNumber {
     public String toString() {
         return "FlightNumber{" +
                 "number='" + number + '\'' +
+                ", capacity=" + capacity +
                 ", departureTime=" + departureTime +
                 ", arrivalTime=" + arrivalTime +
                 ", departureAirport=" + departureAirport +

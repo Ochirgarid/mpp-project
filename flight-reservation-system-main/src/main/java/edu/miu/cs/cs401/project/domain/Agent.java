@@ -12,24 +12,13 @@ public class Agent extends Person {
 
     public Agent(Address address, String firstName, String lastName, LocalDate birthday, String email) {
         super(address, firstName, lastName, birthday, email);
-        passengerList = new ArrayList<Passenger>();
+        passengerList = new ArrayList<>();
     }
 
     public void addPassenger(Passenger passenger) {
 
         this.passengerList.add(passenger);
 
-    }
-
-    public Reservation findReservationByCode(String reservationCode) {
-        Reservation reservation = null;
-        for(Passenger p : passengerList) {
-            reservation = p.findReservationByCode(reservationCode);
-            if(reservation != null) {
-                return reservation;
-            }
-        }
-        return null;
     }
 
     @Override
@@ -40,29 +29,33 @@ public class Agent extends Person {
     }
 
     public void cancelReservation(String reservationCode) throws Exception {
-        Reservation reservation = findReservationByCode(reservationCode);
-        if(reservation == null) {
+        Passenger passenger = getPassengerFromReservationCode(reservationCode);
+        if(passenger == null) {
             throw new Exception("Reservation code: " + reservationCode + " not found");
         }
-        if(reservation.getStatus() == Reservation.CANCEL) {
-            throw new Exception("The reservation already canceled");
-        } else if (reservation.getStatus() == Reservation.CONFIRMED_PURCHASED) {
-            throw new Exception("Cannot cancel the reservation. The reservation already confirmed and purchased");
+        passenger.cancelReservation(reservationCode);
+    }
+
+    private Passenger getPassengerFromReservationCode(String reservationCode) {
+        Passenger passenger = null;
+        for(Passenger p : passengerList) {
+            if(p.findReservationByCode(reservationCode) != null) {
+                passenger = p;
+                break;
+            }
         }
-        reservation.setStatus(Reservation.CANCEL);
+        return passenger;
     }
 
     public void confirmReservation(String reservationCode) throws Exception {
-        Reservation reservation = findReservationByCode(reservationCode);
-        if(reservation == null) {
+        Passenger passenger = getPassengerFromReservationCode(reservationCode);
+        if(passenger == null) {
             throw new Exception("Reservation code: " + reservationCode + " not found");
         }
-        reservation.confirmAndPurchase();
+        passenger.confirmReservation(reservationCode);
     }
     public List<Passenger> getPassengerList(){
-
         return this.passengerList;
-
     }
 
 }

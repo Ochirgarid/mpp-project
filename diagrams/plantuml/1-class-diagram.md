@@ -84,6 +84,7 @@ Flight "1" --> "0..*" Passenger
 Ticket --* Flight : flight ticket
 Flight "1..*" <-- "1..*" Reservation
 Reservation "0..*" <-- "1" Passenger
+Reservation "1" --> "0..*" Ticket
 
 FlightNumber "1" <-- "0..*" Flight
 Person <|-- Passenger

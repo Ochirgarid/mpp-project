@@ -3,26 +3,19 @@
 
 autonumber
 
-[o->ReservationSystem: confirmAndPurchase\n(reservationCode)
+[o->ReservationSystem: confirmAndPurchase\n(agent, reservationCode)
 activate ReservationSystem
 ReservationSystem -> Agent: confirmAndPurchase\n(reservationCode)
 activate Agent
-Agent -> Agent:findReservationByCode\n(reservationCode)
-Agent -> Reservation: confirmAndPurchase\n(reservation)
-activate Reservation
-loop for all flight
-    Reservation -> Flight: getFlight()
-    activate Flight
-    deactivate Flight
-    Reservation -> Ticket: createTicket\n(reservationCode, flight)
-    Ticket -> Ticket: generateNumber()
-    activate Ticket
-    deactivate Ticket
-end
+Agent -> Agent: getPassengerFromReservationCode\n(reservationCode)
+activate Agent
+deactivate Agent
+Agent->Passenger: confirmReservation(ReservationCode)
+activate Passenger
+deactivate Passenger
+deactivate Agent
+[<-ReservationSystem: return success/failed
 
-Reservation -> Reservation: setStatus\n(CONFIRMED_PURCHASED)
-activate Reservation
-deactivate Reservation
 
 
 @enduml
