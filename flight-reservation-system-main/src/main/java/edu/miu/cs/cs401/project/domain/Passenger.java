@@ -47,6 +47,9 @@ public class Passenger extends Person {
         } else if (reservation.getStatus() == Reservation.CONFIRMED_PURCHASED) {
             throw new Exception("Cannot cancel the reservation. The reservation already confirmed and purchased");
         }
+        for(Flight flight : reservation.getFlightList()) {
+            flight.removePassenger(this);
+        }
         reservation.setStatus(Reservation.CANCEL);
     }
 
@@ -54,6 +57,9 @@ public class Passenger extends Person {
         Reservation reservation = findReservationByCode(reservationCode);
         if(reservation == null) {
             throw new Exception("Reservation code: " + reservationCode + " not found");
+        }
+        for(Flight flight : reservation.getFlightList()) {
+            flight.addPassenger(this);
         }
         reservation.confirmAndPurchase();
     }

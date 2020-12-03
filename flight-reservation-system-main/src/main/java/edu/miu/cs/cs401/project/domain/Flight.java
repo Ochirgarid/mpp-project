@@ -14,63 +14,56 @@ public class Flight {
     private List<Crew> crewList;
     private List<Pilot> pilotList;
 
-    public Flight(FlightNumber flightNumber, LocalDate departureDate, LocalDate arrivalDate) {
+    public Flight(FlightNumber flightNumber, LocalDate departureDate, LocalDate arrivalDate, List<Crew> crews, List<Pilot> pilots) {
         this.id = idCount++;
-        this.setFlightNumber(flightNumber);
-        this.setDepartureDate(departureDate);
-        this.setArrivalDate(arrivalDate);
-        this.setPassengerList(new ArrayList<>());
-        this.setCrewList(new ArrayList<>());
-        this.setPilotList(new ArrayList<>());
-
+        this.flightNumber = flightNumber;
+        this.departureDate = departureDate;
+        this.arrivalDate = arrivalDate;
+        this.passengerList = new ArrayList<>();
+        this.crewList = crews;
+        this.pilotList = pilots;
     }
 
     public FlightNumber getFlightNumber() {
         return flightNumber;
     }
 
-    public void setFlightNumber(FlightNumber flightNumber) {
-        this.flightNumber = flightNumber;
-    }
-
     public LocalDate getDepartureDate() {
         return departureDate;
-    }
-
-    public void setDepartureDate(LocalDate departureDate) {
-        this.departureDate = departureDate;
     }
 
     public LocalDate getArrivalDate() {
         return arrivalDate;
     }
 
-    public void setArrivalDate(LocalDate arrivalDate) {
-        this.arrivalDate = arrivalDate;
+    public void addPassenger(Passenger passenger) throws Exception {
+        int totalPassenger = passengerList.size() + crewList.size() + pilotList.size();
+        if(totalPassenger > flightNumber.getCapacity()) {
+            throw new Exception("Sorry the flight already full capacity");
+        }
+        passengerList.add(passenger);
     }
 
+    public void removePassenger(Passenger passenger) {
+        if(passenger != null) {
+            for(Passenger p : passengerList) {
+                if (p.getId() == passenger.getId()) {
+                    passengerList.remove(p);
+                    break;
+                }
+            }
+        }
+    }
     public List<Passenger> getPassengerList() {
         return passengerList;
-    }
-
-    public void setPassengerList(List<Passenger> passengerList) {
-        this.passengerList = passengerList;
     }
 
     public List<Crew> getCrewList() {
         return crewList;
     }
 
-    public void setCrewList(List<Crew> crewList) {
-        this.crewList = crewList;
-    }
-
     public List<Pilot> getPilotList() {
         return pilotList;
-    }
-
-    public void setPilotList(List<Pilot> pilotList) {
-        this.pilotList = pilotList;
     }
 
     @Override
@@ -81,4 +74,5 @@ public class Flight {
                 ", arrivalDate=" + arrivalDate +
                 '}';
     }
+
 }

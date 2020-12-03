@@ -40,29 +40,38 @@ public class Agent extends Person {
     }
 
     public void cancelReservation(String reservationCode) throws Exception {
-        Reservation reservation = findReservationByCode(reservationCode);
+        Reservation reservation = null;
+        Passenger passenger = null;
+        for(Passenger p : passengerList) {
+            reservation = p.findReservationByCode(reservationCode);
+            if(reservation != null) {
+                passenger = p;
+                break;
+            }
+        }
         if(reservation == null) {
             throw new Exception("Reservation code: " + reservationCode + " not found");
         }
-        if(reservation.getStatus() == Reservation.CANCEL) {
-            throw new Exception("The reservation already canceled");
-        } else if (reservation.getStatus() == Reservation.CONFIRMED_PURCHASED) {
-            throw new Exception("Cannot cancel the reservation. The reservation already confirmed and purchased");
-        }
-        reservation.setStatus(Reservation.CANCEL);
+        passenger.cancelReservation(reservation.getReservationCode());
     }
 
     public void confirmReservation(String reservationCode) throws Exception {
-        Reservation reservation = findReservationByCode(reservationCode);
+        Reservation reservation = null;
+        Passenger passenger = null;
+        for(Passenger p : passengerList) {
+            reservation = p.findReservationByCode(reservationCode);
+            if(reservation != null) {
+                passenger = p;
+                break;
+            }
+        }
         if(reservation == null) {
             throw new Exception("Reservation code: " + reservationCode + " not found");
         }
-        reservation.confirmAndPurchase();
+        passenger.confirmReservation(reservation.getReservationCode());
     }
     public List<Passenger> getPassengerList(){
-
         return this.passengerList;
-
     }
 
 }
