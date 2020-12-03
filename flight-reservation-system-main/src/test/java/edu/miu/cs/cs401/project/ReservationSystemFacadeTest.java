@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class ReservationSystemFacadeTest {
 		}
 	}
 
-	//@Test
+	@Test
 	public void findAllAirports(){
 		
 		List<Airport> airports = resSystemFacade.findAllAirports();
@@ -47,7 +48,7 @@ public class ReservationSystemFacadeTest {
 		assertFalse("list of airports is empty", airports.isEmpty());
 	}
 	
-	//@Test
+	@Test
 	public void findAirportByAirportCode(){
 		String airportCode = "CID";
 		
@@ -56,7 +57,7 @@ public class ReservationSystemFacadeTest {
 		assertNotNull(airport);
 	}
 	
-	//@Test
+	@Test
 	public void findAirportsByCity(){
 		String city = reservationSystemRepository.getSampleCity();
 		System.out.println("Sample city:" + city);
@@ -68,7 +69,7 @@ public class ReservationSystemFacadeTest {
 		assertNotNull(airport);
 	}
 	
-	//@Test
+	@Test
 	public void findAirlinesByAirportCode(){
 		String airportCode = "CID";
 		
@@ -79,14 +80,23 @@ public class ReservationSystemFacadeTest {
 	
 	}
 	
-	//@Test
-	public void findFlightsFromTo(String departure, String arrival, LocalDate date){
+	@Test
+	public void findFlightsFromTo(){
+		String departure = "CID";
+		String arrival = "CLT";
+		LocalDate date = LocalDate.of(2020, 12, 03);
+		System.out.println("-------------------- Search for flights  -------------------------------");
+		System.out.println("from '"+departure+"' to '"+arrival+"'");
+		System.out.println("Date '"+date.format(DateTimeFormatter.ofPattern("dd LLLL yyyy"))+"'");
+
+		List<Flight> flights = reservationSystem.findFlightsFromTo(departure, arrival, date);
 		
+		assertNotNull("Can't be null", flights);
 	}
 	
 	@Test
 	public void findReservationsByPassengerId(){
-		Integer passengerId = 2;
+		Integer passengerId = 5;
 		
 		Passenger p = reservationSystemRepository.findPassengerById(passengerId);
 		
