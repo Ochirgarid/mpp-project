@@ -1,28 +1,17 @@
 package edu.miu.cs.cs401.project;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
 import java.util.List;
-
-import org.junit.Ignore;
+import edu.miu.cs.cs401.project.domain.*;
 import org.junit.Test;
 
-import edu.miu.cs.cs401.project.domain.Agent;
-import edu.miu.cs.cs401.project.domain.Airline;
-import edu.miu.cs.cs401.project.domain.Airport;
-import edu.miu.cs.cs401.project.domain.Flight;
-import edu.miu.cs.cs401.project.domain.Passenger;
-import edu.miu.cs.cs401.project.domain.Reservation;
 import edu.miu.cs.cs401.project.repository.RepositoryFactory;
 import edu.miu.cs.cs401.project.repository.ReservationSystemRepository;
-import edu.miu.cs.cs401.project.repository.ReservationSystemRepositoryImpl;
 import edu.miu.cs.cs401.project.service.ReservationSystemFacade;
 import edu.miu.cs.cs401.project.service.ReservationSystemFacadeImpl;
+
+import static org.junit.Assert.*;
 
 public class ReservationSystemFacadeTest {
 	
@@ -132,19 +121,163 @@ public class ReservationSystemFacadeTest {
 	public void viewReservationDetails(int agentCode, String reservationCode) {
 		
 	}
-	
-	//@Test
-	
-	public void confirmReservation(Passenger passenger, String reservationCode) {
-		
-	}
-	
-	//@Test
-	
-	public void cancelReservation(Passenger passenger, String reservationCode) {
-		
+
+	@Test public void givenPassenger_andValidReservationCode_whenConfirmReservation_thenReservationIsConfirm_andTicketsCreated() throws Exception {
+		List<Flight> flightsFromCIDToCLTToday = reservationSystem.findFlightsFromTo("CID", "CLT", LocalDate.now());
+		// create reservation
+		Passenger p = new Passenger(new Address(), "John", "Dan", LocalDate.of(1990, 12, 1) , "JohnDan@gmail.com");
+		Reservation reservation1 = reservationSystem.createReservation(p, flightsFromCIDToCLTToday);
+		// confirm reservation1
+		reservationSystem.confirmReservation(p, reservation1.getReservationCode());
+
+		assertEquals(Reservation.CONFIRMED_PURCHASED, reservation1.getStatus());
+		assertEquals(flightsFromCIDToCLTToday.size(), reservation1.getFlightList().size());
 	}
 
+	@Test(expected = Exception.class)
+	public void givenPassenger_andValidReservationCode_withConfirmedStatus_whenConfirmReservation_thenThrowException() throws Exception {
+		List<Flight> flightsFromCIDToCLTToday = reservationSystem.findFlightsFromTo("CID", "CLT", LocalDate.now());
+		// create reservation
+		Passenger p = new Passenger(new Address(), "John", "Dan", LocalDate.of(1990, 12, 1) , "JohnDan@gmail.com");
+		Reservation reservation1 = reservationSystem.createReservation(p, flightsFromCIDToCLTToday);
+		reservation1.setStatus(Reservation.CONFIRMED_PURCHASED);
+		// confirm reservation1
+		reservationSystem.confirmReservation(p, reservation1.getReservationCode());
+	}
+
+	@Test(expected = Exception.class)
+	public void givenPassenger_andValidReservationCode_withCanceledStatus_whenConfirmReservation_thenThrowException() throws Exception {
+		List<Flight> flightsFromCIDToCLTToday = reservationSystem.findFlightsFromTo("CID", "CLT", LocalDate.now());
+		// create reservation
+		Passenger p = new Passenger(new Address(), "John", "Dan", LocalDate.of(1990, 12, 1) , "JohnDan@gmail.com");
+		Reservation reservation1 = reservationSystem.createReservation(p, flightsFromCIDToCLTToday);
+		reservation1.setStatus(Reservation.CANCEL);
+		// confirm reservation1
+		reservationSystem.confirmReservation(p, reservation1.getReservationCode());
+	}
+
+	@Test(expected = Exception.class)
+	public void givenPassenger_andInValidReservationCode_whenconfirmReservation_thenThrowException() throws Exception {
+		Passenger p = new Passenger(new Address(), "John", "Dan", LocalDate.of(1990, 12, 1) , "JohnDan@gmail.com");
+		reservationSystem.confirmReservation(p, "INVALID_RESERVATION_CODE");
+	}
+
+	@Test public void givenAgent_andValidReservationCode_whenConfirmReservation_thenReservationIsConfirm_andTicketsCreated() throws Exception {
+		List<Flight> flightsFromCIDToCLTToday = reservationSystem.findFlightsFromTo("CID", "CLT", LocalDate.now());
+		// create reservation
+		Passenger p = new Passenger(new Address(), "John", "Dan", LocalDate.of(1990, 12, 1) , "JohnDan@gmail.com");
+		Agent agent = new Agent(new Address(), "","",LocalDate.of(1989,2, 3),"");
+		Reservation reservation3 = reservationSystem.createReservation(agent, p, flightsFromCIDToCLTToday);
+
+		reservationSystem.confirmReservation(agent, reservation3.getReservationCode());
+
+		assertEquals(Reservation.CONFIRMED_PURCHASED, reservation3.getStatus());
+		assertEquals(flightsFromCIDToCLTToday.size(), reservation3.getFlightList().size());
+	}
+
+	@Test(expected = Exception.class)
+	public void givenAgent_andValidReservationCode_withConfirmedStatus_whenConfirmReservation_thenThrowException() throws Exception {
+		List<Flight> flightsFromCIDToCLTToday = reservationSystem.findFlightsFromTo("CID", "CLT", LocalDate.now());
+		// create reservation
+		Passenger p = new Passenger(new Address(), "John", "Dan", LocalDate.of(1990, 12, 1) , "JohnDan@gmail.com");
+		Agent agent = new Agent(new Address(), "","",LocalDate.of(1989,2, 3),"");
+
+		Reservation reservation1 = reservationSystem.createReservation(p, flightsFromCIDToCLTToday);
+		reservation1.setStatus(Reservation.CONFIRMED_PURCHASED);
+		// confirm reservation1
+		reservationSystem.confirmReservation(agent, reservation1.getReservationCode());
+	}
+
+	@Test(expected = Exception.class)
+	public void givenAgent_andValidReservationCode_withCanceledStatus_whenConfirmReservation_thenThrowException() throws Exception {
+		List<Flight> flightsFromCIDToCLTToday = reservationSystem.findFlightsFromTo("CID", "CLT", LocalDate.now());
+		// create reservation
+		Passenger p = new Passenger(new Address(), "John", "Dan", LocalDate.of(1990, 12, 1) , "JohnDan@gmail.com");
+		Agent agent = new Agent(new Address(), "","",LocalDate.of(1989,2, 3),"");
+
+		Reservation reservation1 = reservationSystem.createReservation(p, flightsFromCIDToCLTToday);
+		reservation1.setStatus(Reservation.CANCEL);
+		// confirm reservation1
+		reservationSystem.confirmReservation(agent, reservation1.getReservationCode());
+	}
+
+	@Test(expected = Exception.class)
+	public void givenAgent_andInValidReservationCode_whenConfirmReservation_thenThrowException() throws Exception {
+		Passenger p = new Passenger(new Address(), "John", "Dan", LocalDate.of(1990, 12, 1) , "JohnDan@gmail.com");
+		Agent agent = new Agent(new Address(), "","",LocalDate.of(1989,2, 3),"");
+
+		reservationSystem.confirmReservation(agent, "INVALID_RESERVATION_CODE");
+	}
+
+	@Test
+	public void givenPassenger_andValidReservationCode_whenCancelReservation_thenReservationCanceled() throws Exception {
+		List<Flight> flightsFromCIDToCLTToday = reservationSystemRepository.findFlightsFromTo("CID", "CLT", LocalDate.now());
+		Passenger p = new Passenger(new Address(), "John", "Dan", LocalDate.of(1990, 12, 1) , "JohnDan@gmail.com");
+		Reservation reservation3 = reservationSystem.createReservation(p, flightsFromCIDToCLTToday);
+
+		reservationSystem.cancelReservation(p, reservation3.getReservationCode());
+		assertEquals(Reservation.CANCEL, reservation3.getStatus());
+	}
+	@Test(expected = Exception.class)
+	public void givenPassenger_andValidReservationCode_withCanceledStatus_whenCancelReservation_thenThrowException() throws Exception {
+		List<Flight> flightsFromCIDToCLTToday = reservationSystemRepository.findFlightsFromTo("CID", "CLT", LocalDate.now());
+		Passenger p = new Passenger(new Address(), "John", "Dan", LocalDate.of(1990, 12, 1) , "JohnDan@gmail.com");
+		Reservation reservation3 = reservationSystem.createReservation(p, flightsFromCIDToCLTToday);
+		reservation3.setStatus(Reservation.CANCEL);
+		reservationSystem.cancelReservation(p, reservation3.getReservationCode());
+	}
+
+	@Test(expected = Exception.class)
+	public void givenPassenger_andValidReservationCode_withConfirmedStatus_whenCancelReservation_thenThrowException() throws Exception {
+		List<Flight> flightsFromCIDToCLTToday = reservationSystemRepository.findFlightsFromTo("CID", "CLT", LocalDate.now());
+		Passenger p = new Passenger(new Address(), "John", "Dan", LocalDate.of(1990, 12, 1) , "JohnDan@gmail.com");
+		Reservation reservation3 = reservationSystem.createReservation(p, flightsFromCIDToCLTToday);
+		reservation3.setStatus(Reservation.CONFIRMED_PURCHASED);
+		reservationSystem.cancelReservation(p, reservation3.getReservationCode());
+	}
+	@Test(expected = Exception.class)
+	public void givenPassenger_andInvalidReservationCode_whenCancelReservation_thenThrowException() throws Exception {
+		Passenger p = new Passenger(new Address(), "John", "Dan", LocalDate.of(1990, 12, 1) , "JohnDan@gmail.com");
+		reservationSystem.cancelReservation(p, "INVALID_RESERVATION_CODE");
+	}
+
+	@Test
+	public void givenAgent_andValidReservationCode_whenCancelReservation_thenReservationCanceled() throws Exception {
+		List<Flight> flightsFromCIDToCLTToday = reservationSystemRepository.findFlightsFromTo("CID", "CLT", LocalDate.now());
+		Passenger p = new Passenger(new Address(), "John", "Dan", LocalDate.of(1990, 12, 1) , "JohnDan@gmail.com");
+		Agent agent = new Agent(new Address(), "","",LocalDate.of(1989,2, 3),"");
+
+		Reservation reservation3 = reservationSystem.createReservation(agent, p, flightsFromCIDToCLTToday);
+
+		reservationSystem.cancelReservation(agent, reservation3.getReservationCode());
+		assertEquals(Reservation.CANCEL, reservation3.getStatus());
+	}
+	@Test(expected = Exception.class)
+	public void givenAgent_andValidReservationCode_withCanceledStatus_whenCancelReservation_thenThrowException() throws Exception {
+		List<Flight> flightsFromCIDToCLTToday = reservationSystemRepository.findFlightsFromTo("CID", "CLT", LocalDate.now());
+		Passenger p = new Passenger(new Address(), "John", "Dan", LocalDate.of(1990, 12, 1) , "JohnDan@gmail.com");
+		Agent agent = new Agent(new Address(), "","",LocalDate.of(1989,2, 3),"");
+
+		Reservation reservation3 = reservationSystem.createReservation(agent, p, flightsFromCIDToCLTToday);
+		reservation3.setStatus(Reservation.CANCEL);
+		reservationSystem.cancelReservation(agent, reservation3.getReservationCode());
+	}
+
+	@Test(expected = Exception.class)
+	public void givenAgent_andValidReservationCode_withConfirmedStatus_whenCancelReservation_thenThrowException() throws Exception {
+		List<Flight> flightsFromCIDToCLTToday = reservationSystemRepository.findFlightsFromTo("CID", "CLT", LocalDate.now());
+		Passenger p = new Passenger(new Address(), "John", "Dan", LocalDate.of(1990, 12, 1) , "JohnDan@gmail.com");
+		Agent agent = new Agent(new Address(), "","",LocalDate.of(1989,2, 3),"");
+
+		Reservation reservation3 = reservationSystem.createReservation(agent, p, flightsFromCIDToCLTToday);
+		reservation3.setStatus(Reservation.CONFIRMED_PURCHASED);
+		reservationSystem.cancelReservation(agent, reservation3.getReservationCode());
+	}
+	@Test(expected = Exception.class)
+	public void givenAgent_andInvalidReservationCode_whenCancelReservation_thenThrowException() throws Exception {
+		Agent agent = new Agent(new Address(), "","",LocalDate.of(1989,2, 3),"");
+		reservationSystem.cancelReservation(agent, "INVALID_RESERVATION_CODE");
+	}
 	//@Test
 	
 	void confirmReservation(Agent agent, String reservationCode) {

@@ -130,7 +130,6 @@ public class ReservationSystemFacadeImpl implements ReservationSystemFacade {
 		reservation.setStatus(Reservation.CREATED);
 		passenger.addReservation(reservation);
 		return reservation;
-
 	}
 
 	@Override
