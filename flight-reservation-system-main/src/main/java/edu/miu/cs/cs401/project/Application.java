@@ -39,7 +39,8 @@ public class Application {
 		agentConfirm_andCancel_Reservation();
 
 		agentGetPassengerAndReservation();
-
+		agentFindPassengerAndReservation();
+		findReservationsByPassengerId();
 	}
 
 	private static void actorGetAllAirport() throws Exception {
