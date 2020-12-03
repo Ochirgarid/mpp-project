@@ -1,19 +1,16 @@
 ```plantuml
 @startuml
-autonumber
 
-[o->ReservationSystem: listAirlines(airportCode)
+Actor Agent
+autonumber
+Agent->ReservationSystem: findAirportByAirportCode\n(airportCode)
 activate ReservationSystem
-ReservationSystem -> Agent: listAirlines(airportCode)
-activate Agent
-Agent -> Airport : findAirportByCode()
-activate Airport
-deactivate Airport
-Agent -> Airport : findDepartureAirlines()
-activate Airport
-deactivate Airport
-deactivate Agent
-deactivate ReservationSystem
+
+ReservationSystem -> ReservationSystemRepository: findAirportByAirportCode\n(airportCode)
+activate ReservationSystemRepository
+ReservationSystemRepository -> ReservationSystemRepository: findAllAirports()
+
+ReservationSystem->Agent: Airport
 
 @enduml
 ```
