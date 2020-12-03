@@ -67,6 +67,8 @@ public class Application {
 
 		agentConfirm_andCancel_Reservation();
 
+		agentGetPassengerAndReservation();
+
 	}
 
 	private static void passengerConfirm_andCancel_Reservation() throws Exception {
@@ -126,4 +128,20 @@ public class Application {
 		reservationSystem.cancelReservation(agent, reservation4.getReservationCode());
 		System.out.println("After the Agent cancel reservation4. Status: " + reservation4.getStatusDetail());
 	}
+
+	private static void agentGetPassengerAndReservation() throws Exception {
+
+		System.out.println("-------------------- agent views reservation -------------------------------");
+		List<Flight> flightsFromCIDToCLTToday = reservationSystemRepository.findFlightsFromTo("CID", "CLT", LocalDate.now());
+		Passenger p = reservationSystemRepository.findPassengerById(1);
+		Agent agent = reservationSystemRepository.findAgentById(11);
+
+		Reservation reservation3 = reservationSystem.createReservation(agent, p, flightsFromCIDToCLTToday);
+		Reservation reservation4 = reservationSystem.createReservation(agent, p, flightsFromCIDToCLTToday);
+
+		reservationSystem.viewReservationDetails(11, reservation3.getReservationCode());
+
+
+	}
+
 }
