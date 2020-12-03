@@ -5,31 +5,60 @@ import java.util.List;
 
 import edu.miu.cs.cs401.project.domain.*;
 import edu.miu.cs.cs401.project.repository.RepositoryFactory;
+import edu.miu.cs.cs401.project.repository.ReservationSystemRepository;
 
 public class ReservationSystemFacadeImpl implements ReservationSystemFacade {
 
 	@Override
-	public List<Airport> findAllAirports() {
-		// TODO Auto-generated method stub
-		return null;
+	public List <Airport> findAllAirports() {
+		List <Airport> allAirports = null;
+		try {
+			allAirports = (List<Airport>) RepositoryFactory.getReservationSystemRepository()
+					.findAllAirports();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return allAirports;
 	}
 
 	@Override
 	public Airport findAirportByAirportCode(String airportCode) {
-		// TODO Auto-generated method stub
-		return null;
+		Airport resultAirport = null;
+		try {
+			resultAirport = (Airport) RepositoryFactory.getReservationSystemRepository()
+					.findAirportByAirportCode(airportCode);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return resultAirport;
 	}
 
 	@Override
 	public List<Airport> findAirportsByCity(String city) {
-		// TODO Auto-generated method stub
-		return null;
+		List <Airport> cityAirports = null;
+		try {
+			cityAirports = (List<Airport>) RepositoryFactory.getReservationSystemRepository()
+					.findAirportsByCity(city);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return cityAirports;
 	}
 
 	@Override
 	public List<Airline> findAirlinesByAirportCode(String airportCode) {
-		// TODO Auto-generated method stub
-		return null;
+		List <Airline> airlinesByAirportCode = null;
+		try {
+			airlinesByAirportCode = (List<Airline>) RepositoryFactory.getReservationSystemRepository()
+					.findAirlinesByAirportCode(airportCode);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return airlinesByAirportCode;
 	}
 
 	@Override
@@ -59,9 +88,12 @@ public class ReservationSystemFacadeImpl implements ReservationSystemFacade {
 	}
 
 	@Override
-	public List<Passenger> findPassengersByAgentCode(String agentCode) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Passenger> findPassengersByAgentCode(int agentCode) {
+		
+		ReservationSystemRepository repo = RepositoryFactory.getReservationSystemRepository();
+		
+		return repo.findAgentById(agentCode).getPassengerList();
+
 	}
 
 	@Override

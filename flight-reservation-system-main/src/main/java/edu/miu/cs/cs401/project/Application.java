@@ -28,6 +28,41 @@ public class Application {
 	public static void main(String[] args) throws Exception {
 		System.out.println("Airline Reservation System");
 
+		ReservationSystemFacade reservationSystem = new ReservationSystemFacadeImpl();
+
+		// get a list of all Airports
+		System.out.println("-------------------- get a list of all Airports -------------------------------");
+		List <Airport> allAirports = reservationSystem.findAllAirports();
+		String sampleCity = "";
+		for (Airport a: allAirports) {
+			if(sampleCity.isEmpty()) {
+				sampleCity = a.getAddress().getCity();
+			}
+			System.out.println(a.toString());
+		}
+
+		// find an Airport by AirportCode
+		System.out.println("-------------------- find an Airport by AirportCode ----------------------------");
+		Airport codeAirports = reservationSystem.findAirportByAirportCode("CLT");
+		System.out.println(codeAirports.toString());
+
+		// find all Airports by a city
+		System.out.println("-------------------- find all Airports by a city -------------------------------");
+		System.out.println("Sample city:" + sampleCity);
+		List <Airport> cityAirports = reservationSystem.findAirportsByCity(sampleCity);
+		for (Airport a: cityAirports) {
+			System.out.println(a.toString());
+		}
+
+		// find all Airlines departing from the Airport by AirportCode
+		System.out.println("-------- find all Airlines departing from the Airport by AirportCode -----------");
+		List <Airline> departingAirlines = reservationSystem.findAirlinesByAirportCode("CLT");
+		for (Airline a: departingAirlines) {
+			System.out.println(a.toString());
+		}
+
+
+		List<Flight> flightsFromCIDToCLTToday = RepositoryFactory.getReservationSystemRepository().findFlightsFromTo("CID", "CLT", LocalDate.now());
 		passengerConfirm_andCancel_Reservation();
 
 		agentConfirm_andCancel_Reservation();

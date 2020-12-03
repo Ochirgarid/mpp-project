@@ -24,7 +24,7 @@ public interface ReservationSystemFacade {
 	
 	List<Reservation> findReservationsByPassengerId(Integer passengerId);
 	
-	List<Passenger> findPassengersByAgentCode(String agentCode);
+	List<Passenger> findPassengersByAgentCode(int agentCode);
 	
 	Reservation createReservation(Passenger passenger, List<Flight> flights); // Passenger reserves
 	

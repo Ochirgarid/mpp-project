@@ -57,4 +57,10 @@ public class Agent extends Person {
         }
         reservation.confirmAndPurchase();
     }
+    public List<Passenger> getPassengerList(){
+
+        return this.passengerList;
+
+    }
+
 }
