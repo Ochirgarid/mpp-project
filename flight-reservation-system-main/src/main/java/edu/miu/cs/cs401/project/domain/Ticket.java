@@ -1,5 +1,7 @@
 package edu.miu.cs.cs401.project.domain;
 
+import org.apache.commons.lang3.RandomStringUtils;
+
 public class Ticket {
 
     private static int idCount = 0;
@@ -43,10 +45,21 @@ public class Ticket {
     }
 
     private String generateNumber() {
+        int length = 20;
+        boolean useLetters = false;
+        boolean useNumbers = true;
+        String generatedString = RandomStringUtils.random(length, useLetters, useNumbers);
 
-        return null;
-        //TO DO
+        return generatedString.toUpperCase();
 
     }
 
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "reservationCode='" + reservationCode + '\'' +
+                ", number='" + number + '\'' +
+                ", flight=" + flight +
+                '}';
+    }
 }

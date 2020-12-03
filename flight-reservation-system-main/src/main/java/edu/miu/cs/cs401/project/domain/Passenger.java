@@ -24,9 +24,26 @@ public class Passenger extends Person {
     }
 
     public void addReservation(Reservation reservation){
-
         this.reservationList.add(reservation);
-
     }
 
+    public void cancelReservation(String reservationCode) throws Exception {
+        Reservation reservation = null;
+        for(Reservation res : reservationList) {
+            if(res.getReservationCode().equals(reservationCode)) {
+                reservation = res;
+                break;
+            }
+        }
+        if(reservation == null) {
+            throw new Exception("Reservation code: " + reservationCode + " not found");
+        }
+
+        if(reservation.getStatus() == Reservation.CANCEL) {
+            throw new Exception("The reservation already canceled");
+        } else if (reservation.getStatus() == Reservation.CONFIRMED_PURCHASED) {
+            throw new Exception("Cannot cancel the reservation. The reservation already confirmed and purchased");
+        }
+        reservation.setStatus(Reservation.CANCEL);
+    }
 }

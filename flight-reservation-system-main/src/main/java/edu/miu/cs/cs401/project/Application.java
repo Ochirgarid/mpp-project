@@ -12,25 +12,33 @@ public class Application {
 
 	public static void main(String[] args) throws Exception {
 		System.out.println("Airline Reservation System");
-		System.out.println("Added new here to test");
-//		airport1 = new Airport("CID", "Eastern Iowa Airport", new Address());
-//		airport2 = new Airport("ORD", "Chicago O'Hare International Airport", new Address());
-//		airport3 = new Airport("CLT", "Charlotte Douglas International Airport", new Address());
-		List<Flight> flightsFromCIDToCLTToday = RepositoryFactory.getReservationSystemRepository().findFlightsFromTo("CID", "CLT", LocalDate.now());
-		System.out.println("total flights from CID to CLT today: " + flightsFromCIDToCLTToday.size());
 
+		List<Flight> flightsFromCIDToCLTToday = RepositoryFactory.getReservationSystemRepository().findFlightsFromTo("CID", "CLT", LocalDate.now());
+		System.out.println("Total flights from CID to CLT today: " + flightsFromCIDToCLTToday.size());
 
 		// create two reservations
 		Passenger p = RepositoryFactory.getReservationSystemRepository().findPassengerById(1);
-		System.out.print(p.getReservationList().size());
 
 		ReservationSystemFacade reservationSystem = new ReservationSystemFacadeImpl();
-		reservationSystem.createReservation(p, flightsFromCIDToCLTToday);
-		reservationSystem.createReservation(p, flightsFromCIDToCLTToday);
+		Reservation reservation1 = reservationSystem.createReservation(p, flightsFromCIDToCLTToday);
+		Reservation reservation2 = reservationSystem.createReservation(p, flightsFromCIDToCLTToday);
 
-		System.out.print(p.getReservationList().size());
+		// confirm reservation1
+		System.out.println("-------------------- passenger confirm reservation1 -------------------------------");
+		System.out.println("Before the Passenger confirm reservation1. Status: " + reservation1.getStatusDetail());
+		reservationSystem.confirmReservation(p, reservation1.getReservationCode());
+		System.out.println("After the Passenger confirm the reservation1. Status: " + reservation1.getStatusDetail());
+		System.out.println("---- list tickets of the reservation1: ");
+		for(Ticket t : reservation1.getTicketList()) {
+			System.out.println("	" + t);
+		}
 
-		// cancel reservation
+		// cancel reservation2
+		System.out.println("-------------------- passenger cancel reservation2 -------------------------------");
+		System.out.println("Before the Passenger cancel reservation2. Status: " + reservation2.getStatusDetail());
+		reservationSystem.cancelReservation(p, reservation2.getReservationCode());
+		System.out.println("After the Passenger cancel reservation2. Status: " + reservation2.getStatusDetail());
+
 
 	}
 

@@ -73,4 +73,17 @@ public class Flight {
         this.pilotList = pilotList;
     }
 
+    public Ticket createTicket(Reservation reservation) {
+        Ticket ticket = new Ticket( reservation.getReservationCode(), this);
+        return ticket;
+    }
+
+    @Override
+    public String toString() {
+        return "Flight{" +
+                "flightNumber=" + flightNumber +
+                ", departureDate=" + departureDate +
+                ", arrivalDate=" + arrivalDate +
+                '}';
+    }
 }
