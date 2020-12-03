@@ -12,24 +12,13 @@ public class Agent extends Person {
 
     public Agent(Address address, String firstName, String lastName, LocalDate birthday, String email) {
         super(address, firstName, lastName, birthday, email);
-        passengerList = new ArrayList<Passenger>();
+        passengerList = new ArrayList<>();
     }
 
     public void addPassenger(Passenger passenger) {
 
         this.passengerList.add(passenger);
 
-    }
-
-    public Reservation findReservationByCode(String reservationCode) {
-        Reservation reservation = null;
-        for(Passenger p : passengerList) {
-            reservation = p.findReservationByCode(reservationCode);
-            if(reservation != null) {
-                return reservation;
-            }
-        }
-        return null;
     }
 
     @Override
@@ -40,35 +29,30 @@ public class Agent extends Person {
     }
 
     public void cancelReservation(String reservationCode) throws Exception {
-        Reservation reservation = null;
+        Passenger passenger = getPassengerFromReservationCode(reservationCode);
+        if(passenger == null) {
+            throw new Exception("Reservation code: " + reservationCode + " not found");
+        }
+        passenger.cancelReservation(reservationCode);
+    }
+
+    private Passenger getPassengerFromReservationCode(String reservationCode) {
         Passenger passenger = null;
         for(Passenger p : passengerList) {
-            reservation = p.findReservationByCode(reservationCode);
-            if(reservation != null) {
+            if(p.findReservationByCode(reservationCode) != null) {
                 passenger = p;
                 break;
             }
         }
-        if(reservation == null) {
-            throw new Exception("Reservation code: " + reservationCode + " not found");
-        }
-        passenger.cancelReservation(reservation.getReservationCode());
+        return passenger;
     }
 
     public void confirmReservation(String reservationCode) throws Exception {
-        Reservation reservation = null;
-        Passenger passenger = null;
-        for(Passenger p : passengerList) {
-            reservation = p.findReservationByCode(reservationCode);
-            if(reservation != null) {
-                passenger = p;
-                break;
-            }
-        }
-        if(reservation == null) {
+        Passenger passenger = getPassengerFromReservationCode(reservationCode);
+        if(passenger == null) {
             throw new Exception("Reservation code: " + reservationCode + " not found");
         }
-        passenger.confirmReservation(reservation.getReservationCode());
+        passenger.confirmReservation(reservationCode);
     }
     public List<Passenger> getPassengerList(){
         return this.passengerList;
