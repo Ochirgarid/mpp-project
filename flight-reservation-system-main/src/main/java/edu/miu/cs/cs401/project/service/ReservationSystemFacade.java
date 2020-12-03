@@ -1,6 +1,7 @@
 package edu.miu.cs.cs401.project.service;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 
 import edu.miu.cs.cs401.project.domain.Agent;
@@ -23,12 +24,14 @@ public interface ReservationSystemFacade {
 	List<Flight> findFlightsFromTo(String departure, String arrival, LocalDate date);
 	
 	List<Reservation> findReservationsByPassengerId(Integer passengerId);
-	
-	List<Passenger> findPassengersByAgentCode(int agentCode);
+
+	HashMap<Passenger, List<Reservation>> findReservationsByAgentCode(int agentCode);
 	
 	Reservation createReservation(Passenger passenger, List<Flight> flights); // Passenger reserves
 	
 	Reservation createReservation(Agent agent, Passenger passenger, List<Flight> flights); // Agent reserves
+
+	void viewReservationDetails(int agentCode, String reservationCode);
 	
 	void confirmReservation(Passenger passenger, String reservationCode) throws Exception;
 	

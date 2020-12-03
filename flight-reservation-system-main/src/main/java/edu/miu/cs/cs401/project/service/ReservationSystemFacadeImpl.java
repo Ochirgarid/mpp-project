@@ -1,6 +1,7 @@
 package edu.miu.cs.cs401.project.service;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 
 import edu.miu.cs.cs401.project.domain.*;
@@ -87,12 +88,37 @@ public class ReservationSystemFacadeImpl implements ReservationSystemFacade {
 		return res;
 	}
 
-	@Override
-	public List<Passenger> findPassengersByAgentCode(int agentCode) {
-		
+	public HashMap<Passenger, List<Reservation>> findReservationsByAgentCode(int agentCode){
+
 		ReservationSystemRepository repo = RepositoryFactory.getReservationSystemRepository();
-		
-		return repo.findAgentById(agentCode).getPassengerList();
+
+		List<Passenger> passengerList = repo.findAgentById(agentCode).getPassengerList();
+
+		HashMap<Passenger, List<Reservation>> passengerReservations = new HashMap<Passenger, List<Reservation>>();
+
+		for (int i = 0; i < passengerList.size(); i++){
+			List<Reservation> reservationList = passengerList.get(i).getReservationList();
+			passengerReservations.put(passengerList.get(i), reservationList);
+		}
+
+		return passengerReservations;
+
+	}
+
+	public void viewReservationDetails(int agentCode, String reservationCode){
+
+		ReservationSystemRepository repo = RepositoryFactory.getReservationSystemRepository();
+
+		List<Passenger> passengerList = repo.findAgentById(agentCode).getPassengerList();
+
+		for (int i = 0; i < passengerList.size(); i++){
+			List<Reservation> reservationList = repo.findReservationsByPassengerId(passengerList.get(i).getId());
+			for (int j = 0; j < reservationList.size(); j++){
+				if (reservationList.get(j).getReservationCode().equalsIgnoreCase(reservationCode)){
+					System.out.println(reservationList.get(j).toString());
+				}
+			}
+		}
 
 	}
 

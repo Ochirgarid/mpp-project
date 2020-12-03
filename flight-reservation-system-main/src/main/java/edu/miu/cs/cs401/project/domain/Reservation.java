@@ -26,6 +26,29 @@ public class Reservation {
         this.setFlightList(flightList);
     }
 
+    public String toString(){
+
+        String result ="";
+        result+= "Reservation code: " +this.reservationCode +", ";
+        
+        for (int i = 0; i < this.flightList.size(); i++){
+            String flightCount = Integer.toString(i+1);
+            result+= flightCount+ "- ";
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
+            String departureDate = this.flightList.get(i).getDepartureDate().format(formatter);
+            String arrivalDate = this.flightList.get(i).getArrivalDate().format(formatter);
+            result+= "Departure date- "+ departureDate+ " Arrival date- "+ arrivalDate;
+
+            String flightNumber = this.flightList.get(i).getFlightNumber().getNumber();
+            result+= ", Flight number- "+ flightNumber;
+            result+= "\n";
+        }
+
+        return result;
+
+    }
+
     public List<Ticket> getTicketList() {
         return ticketList;
     }
