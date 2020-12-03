@@ -90,7 +90,13 @@ public class ReservationSystemFacadeImpl implements ReservationSystemFacade {
 	@Override
 	public List<Passenger> findPassengersByAgentCode(int agentCode) {
 		
-		ReservationSystemRepository repo = RepositoryFactory.getReservationSystemRepository();
+		ReservationSystemRepository repo = null;
+		try {
+			repo = RepositoryFactory.getReservationSystemRepository();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		return repo.findAgentById(agentCode).getPassengerList();
 
