@@ -2,6 +2,7 @@ package edu.miu.cs.cs401.project.repository;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
@@ -238,16 +239,16 @@ public class ReservationSystemRepositoryImpl implements ReservationSystemReposit
 				.collect(Collectors.toList());
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Reservation> findReservationsByPassengerId(Integer passengerId) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return (List<Reservation>) passengers.get(passengerId);
 	}
 
 	@Override
 	public List<Passenger> findPassengersByAgentCode(String agentCode) {
-		// TODO Auto-generated method stub
-		return null;
+		return agents.get(agentCode).getPassengerList();
 	}
 
     @Override
