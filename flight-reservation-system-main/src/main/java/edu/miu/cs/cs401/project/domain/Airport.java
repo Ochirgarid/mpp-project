@@ -3,6 +3,8 @@ package edu.miu.cs.cs401.project.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
+
 public class Airport {
     private static int idCount = 0;
     private int id;
@@ -44,6 +46,10 @@ public class Airport {
 	public String getCode() {
 		return code;
 	}
+
+    public List <Airline> getdepartureAirlines() {
+        return departureAirlines;
+    }
 
 	public boolean isAirlineAllowedToDepart(Airline airline) {
         for(Airline al : this.departureAirlines) {

@@ -73,4 +73,13 @@ public class Airline {
         this.code = code;
     }
 
+    @Override
+    public String toString() {
+        return "Airline{" +
+                "code='" + code + '\'' +
+                ", name='" + name + '\'' +
+                ", history='" + history + '\'' +
+                '}';
+    }
+
 }
