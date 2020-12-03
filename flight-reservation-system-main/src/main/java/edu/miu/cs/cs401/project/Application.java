@@ -7,6 +7,7 @@ import edu.miu.cs.cs401.project.service.ReservationSystemFacade;
 import edu.miu.cs.cs401.project.service.ReservationSystemFacadeImpl;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 
 public class Application {
@@ -68,6 +69,8 @@ public class Application {
 		agentConfirm_andCancel_Reservation();
 
 		agentGetPassengerAndReservation();
+
+		agentFindPassengerAndReservation();
 
 	}
 
@@ -142,6 +145,32 @@ public class Application {
 
 		reservationSystem.viewReservationDetails(11, reservation3.getReservationCode());
 		reservationSystem.viewReservationDetails(11, reservation4.getReservationCode());
+
+	}
+
+	private static void agentFindPassengerAndReservation() throws Exception {
+
+		System.out.println("----------------agent views passengers and reservations---------------------------");
+		List<Flight> flightsFromCIDToCLTToday = reservationSystemRepository.findFlightsFromTo("CID", "CLT", LocalDate.now());
+		Passenger p = reservationSystemRepository.findPassengerById(1);
+		Passenger p2 = reservationSystemRepository.findPassengerById(2);
+		Agent agent = reservationSystemRepository.findAgentById(11);
+
+		Reservation reservation3 = reservationSystem.createReservation(agent, p, flightsFromCIDToCLTToday);
+		Reservation reservation4 = reservationSystem.createReservation(agent, p2, flightsFromCIDToCLTToday);
+
+		HashMap<Passenger, List<Reservation>> hash = reservationSystem.findReservationsByAgentCode(11);
+		for (Passenger pass : hash.keySet()){
+			System.out.println(pass.getId());
+			List<Reservation> rList = hash.get(pass);
+			String s = "";
+			for (int i = 0; i < rList.size(); i++){
+				s+= rList.get(i).getReservationCode()+ ", ";
+			}
+			System.out.println(s);
+		}
+
+		//reservationSystem.viewReservationDetails(11, reservation4.getReservationCode());
 
 
 	}
