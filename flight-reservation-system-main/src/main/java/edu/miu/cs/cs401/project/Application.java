@@ -3,10 +3,12 @@ package edu.miu.cs.cs401.project;
 import edu.miu.cs.cs401.project.domain.*;
 import edu.miu.cs.cs401.project.repository.RepositoryFactory;
 import edu.miu.cs.cs401.project.repository.ReservationSystemRepository;
+import edu.miu.cs.cs401.project.repository.ReservationSystemRepositoryImpl;
 import edu.miu.cs.cs401.project.service.ReservationSystemFacade;
 import edu.miu.cs.cs401.project.service.ReservationSystemFacadeImpl;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 
@@ -41,6 +43,7 @@ public class Application {
 		agentGetPassengerAndReservation();
 		agentFindPassengerAndReservation();
 		findReservationsByPassengerId();
+		searchForFlights();
 	}
 
 	private static void actorGetAllAirport() throws Exception {
@@ -150,27 +153,29 @@ public class Application {
 		List<Flight> flightsFromCIDToCLTToday = reservationSystemRepository.findFlightsFromTo("CID", "CLT", LocalDate.now());
 		Passenger p = new Passenger(new Address(), "John", "Dan", LocalDate.of(1990, 12, 1) , "JohnDan@gmail.com");
 		Passenger p2 = reservationSystemRepository.findPassengerById(2);
-		Agent agent = reservationSystemRepository.findAgentById(11);
+		Agent agent = reservationSystemRepository.findAgentById(16);
+		
+		System.out.println("agent: "+agent.toString());
 
 		Reservation reservation3 = reservationSystem.createReservation(agent, p, flightsFromCIDToCLTToday);
 		Reservation reservation4 = reservationSystem.createReservation(agent, p, flightsFromCIDToCLTToday);
 
-		reservationSystem.viewReservationDetails(11, reservation3.getReservationCode());
-		reservationSystem.viewReservationDetails(11, reservation4.getReservationCode());
+		reservationSystem.viewReservationDetails(16, reservation3.getReservationCode());
+		reservationSystem.viewReservationDetails(16, reservation4.getReservationCode());
 	}
 
 	private static void agentFindPassengerAndReservation() throws Exception {
 
 		System.out.println("----------------agent views passengers and reservations---------------------------");
 		List<Flight> flightsFromCIDToCLTToday = reservationSystemRepository.findFlightsFromTo("CID", "CLT", LocalDate.now());
-		Passenger p = reservationSystemRepository.findPassengerById(1);
-		Passenger p2 = reservationSystemRepository.findPassengerById(2);
-		Agent agent = reservationSystemRepository.findAgentById(11);
+		Passenger p = reservationSystemRepository.findPassengerById(4);
+		Passenger p2 = reservationSystemRepository.findPassengerById(5);
+		Agent agent = reservationSystemRepository.findAgentById(16);
 
 		Reservation reservation3 = reservationSystem.createReservation(agent, p, flightsFromCIDToCLTToday);
 		Reservation reservation4 = reservationSystem.createReservation(agent, p2, flightsFromCIDToCLTToday);
 
-		HashMap<Passenger, List<Reservation>> hash = reservationSystem.findReservationsByAgentCode(11);
+		HashMap<Passenger, List<Reservation>> hash = reservationSystem.findReservationsByAgentCode(16);
 		for (Passenger pass : hash.keySet()){
 			System.out.println(pass.getId());
 			List<Reservation> rList = hash.get(pass);
@@ -186,8 +191,8 @@ public class Application {
 
 	private static void findReservationsByPassengerId() {
 		System.out.println("-------------------- find Reservations By PassengerId -------------------------------");
-		Integer passengerId = 1;
-		Passenger p = reservationSystemRepository.findPassengerById(1);
+		Integer passengerId = 4;
+		Passenger p = reservationSystemRepository.findPassengerById(4);
 		List<Flight> flightsFromCIDToCLTToday = reservationSystemRepository.findFlightsFromTo("CID", "CLT", LocalDate.now());
 
 		Reservation reservation3 = reservationSystem.createReservation(p, flightsFromCIDToCLTToday);
@@ -208,5 +213,17 @@ public class Application {
 				.filter(r-> r.getReservationCode().equalsIgnoreCase(code))
 				.findFirst().get();
 		System.out.println(reservation.toString());
+	}
+	
+	private static void searchForFlights() {
+		String departure = "CID";
+		String arrival = "CLT";
+		LocalDate date = LocalDate.of(2020, 12, 03);
+		System.out.println("-------------------- Search for flights  -------------------------------");
+		System.out.println("from '"+departure+"' to '"+arrival+"'");
+		System.out.println("Date '"+date.format(DateTimeFormatter.ofPattern("dd LLLL yyyy"))+"'");
+
+		
+		System.out.println(reservationSystem.findFlightsFromTo(departure, arrival, date).toString());
 	}
 }
