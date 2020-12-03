@@ -210,6 +210,10 @@ public class ReservationSystemRepositoryImpl implements ReservationSystemReposit
 		return null;
 	}
 
+	public String getSampleCity() {
+		return airports.get(0).getAddress().getCity();
+	}
+
 	@Override
 	public List<Airport> findAirportsByCity(String city) {
 		return airports
