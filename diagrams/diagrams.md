@@ -6,11 +6,6 @@ The steps to create
 2. Use case diagram
 3. Sequence diagram
 
-Missing sequence diagrams
-
-1. Agent: Cancel a reservation [diagram-14](#3.14-Sequence-diagram-14)
-2. Agent: Confirm and purchase a reservation. This will result in multiple tickets (one for each flight in the reservation) [diagram-16](#3.16-Sequence-diagram-16)
-
 ## 1. Class diagram
 
 Class diagram PlantUML [source](plantuml/1-class-diagram.md)
@@ -55,19 +50,22 @@ Sequence diagram PlantUML [source](plantuml/3-4-sequence-diagram.md)
 
 Passenger: View list of flights between a departure and destination for a date
 
-![Sequence diagram-5](images/3-5-passenger-search-flights.png)
+Sequence diagram PlantUML [source](plantuml/3-5-sequence-diagram.md)
+![Sequence diagram-5](images/3-5-sequence-diagram.png)
 
 ## 3.6 Sequence diagram-6
 
 Agent: View list of flights between a departure and destination for a date
 
-![Sequence diagram-6](images/3-6-agent-search-flights.png)
+Sequence diagram PlantUML [source](plantuml/3-6-sequence-diagram.md)
+![Sequence diagram-6](images/3-6-sequence-diagram.png)
 
 ## 3.7 Sequence diagram-7
 
 Passenger: View list of own reservations
 
-![Sequence diagram-7](images/3-7-sequence-diagram-view-reservations.png)
+Sequence diagram PlantUML [source](plantuml/3-7-sequence-diagram.md)
+![Sequence diagram-7](images/3-7-sequence-diagram.png)
 
 ## 3.8 Sequence diagram-8
 
@@ -75,6 +73,7 @@ Agent: View list of passengers and reservations made for them â€œby this agentâ€
 
 Sequence diagram PlantUML [source](plantuml/3-8-sequence-diagram.md)
 ![Sequence diagram-8](images/3-8-sequence-diagram.png)
+
 ## 3.9 Sequence diagram-9
 
 Passenger: View details of a reservation (flights, departure times, etc.)
@@ -110,12 +109,22 @@ Passenger: Cancel a reservation
 ![Sequence diagram-13](images/3-13-cancel_reservation.png)
 
 ## 3.14 Sequence diagram-14
+
 Agent: Cancel a reservation
+
+Sequence diagram PlantUML [source](plantuml/3-14-sequence-diagram.md)
+![Sequence diagram-14](images/3-14-sequence-diagram.png)
 
 ## 3.15 Sequence diagram-15
 
 Passenger: Confirm and purchase a reservation. This will result in multiple tickets (one for each flight in the reservation)
 
-![Sequence diagram-15](images/3-15-confirm_purchase_reservation.png)
+Sequence diagram PlantUML [source](plantuml/3-15-sequence-diagram.md)
+![Sequence diagram-15](images/3-15-sequence-diagram.png)
+
 ## 3.16 Sequence diagram-16
+
 Agent: Confirm and purchase a reservation. This will result in multiple tickets (one for each flight in the reservation)
+
+Sequence diagram PlantUML [source](plantuml/3-16-sequence-diagram.md)
+![Sequence diagram-16](images/3-16-sequence-diagram.png)

@@ -6,7 +6,10 @@ autonumber
 activate ReservationSystem
 ReservationSystem -> Passenger: listAirlines(airportCode)
 activate Passenger
-Passenger -> Airport : getDepartureAirlines()
+Passenger -> Airport : findAirportByCode()
+activate Airport
+deactivate Airport
+Passenger -> Airport : findDepartureAirlines()
 activate Airport
 deactivate Airport
 deactivate Passenger
