@@ -85,9 +85,10 @@ public class Reservation {
         } else if (status == CONFIRMED_PURCHASED) {
             throw new Exception("The reservation already confirmed and purchased");
         }
-
+        Ticket ticket;
         for(Flight flight : flightList) {
-            ticketList.add(flight.createTicket(this));
+            ticket = new Ticket(getReservationCode(), flight);
+            ticketList.add(ticket);
         }
         status = CONFIRMED_PURCHASED;
     }
