@@ -2,20 +2,33 @@ package edu.miu.cs.cs401.project.repository;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
-import edu.miu.cs.cs401.project.domain.*;
+import edu.miu.cs.cs401.project.domain.Address;
+import edu.miu.cs.cs401.project.domain.Agent;
+import edu.miu.cs.cs401.project.domain.Airline;
+import edu.miu.cs.cs401.project.domain.Airport;
+import edu.miu.cs.cs401.project.domain.Crew;
+import edu.miu.cs.cs401.project.domain.Flight;
+import edu.miu.cs.cs401.project.domain.FlightNumber;
+import edu.miu.cs.cs401.project.domain.Passenger;
+import edu.miu.cs.cs401.project.domain.Pilot;
+import edu.miu.cs.cs401.project.domain.Reservation;
+import edu.miu.cs.cs401.project.domain.Ticket;
 
 public class ReservationSystemRepositoryImpl implements ReservationSystemRepository {
 	
 	private Map<String, Airport> airportsByCity = new HashMap<>();
-	private Map<String, Airport> airports = new HashMap<String,Airport>();
+	private Map<String, Airport> airports = new HashMap<>();
 	private Map<Integer, Passenger> passengers = new HashMap<>();
-	private Map<String, Airline> airlines= new HashMap<>();
+    private Map<String, Airline> airlines= new HashMap<>();
     private List <Flight> allFlight = new ArrayList<>();
-
-    private Map<Integer, Pilot> pilots= new HashMap<>();
+	private Map<Integer, Pilot> pilots= new HashMap<>();
 	private Map<Integer, Crew> crews= new HashMap<>();
 	private Map<Integer, Agent> agents= new HashMap<>();
 	private Map<String, Ticket> tickets= new HashMap<>();
@@ -25,6 +38,7 @@ public class ReservationSystemRepositoryImpl implements ReservationSystemReposit
 	private List <Airline> allAirlines;
     private List <Airport> allAirports;
     private List <FlightNumber> allFlightNumbers;
+    
     private List <Passenger> allPassenger;
     private List <Pilot> allPilot;
     private List <Crew> allCrew;
@@ -34,8 +48,25 @@ public class ReservationSystemRepositoryImpl implements ReservationSystemReposit
 	ReservationSystemRepositoryImpl() throws Exception {
 		super();
 		setupAirports();
-		setupPassengers();
-	}
+        setupPassengers();
+        setupAgents();
+    }
+    
+    private void setupAgents(){
+
+        Address agent1 = new Address();
+        Address agent2 = new Address();
+        Address agent3 = new Address();
+
+        Agent a1 = new Agent(agent1, "Agent", "One", LocalDate.of(1990, 12, 1) , "Agentone@gmail.com");
+        Agent a2 = new Agent(agent2, "Agent", "Two", LocalDate.of(1990, 12, 1) , "Agenttwo@gmail.com");
+        Agent a3 = new Agent(agent3, "Agent", "Three", LocalDate.of(1990, 12, 1) , "Agentthree@gmail.com");
+
+        this.agents.put(a1.getId(), a1);
+        this.agents.put(a2.getId(), a2);
+        this.agents.put(a3.getId(), a3);
+
+    }
 	
 
 	private void setupPassengers() {
@@ -275,7 +306,7 @@ public class ReservationSystemRepositoryImpl implements ReservationSystemReposit
 
 	@Override
 	public List<Airport> findAllAirports() {
-		return new ArrayList(airports.values());
+		return airports.values();
 	}
 
 	@Override
@@ -286,7 +317,13 @@ public class ReservationSystemRepositoryImpl implements ReservationSystemReposit
 			}
 		}
 		return null;
-	}
+    }
+    
+    public Agent findAgentById(int id){
+
+        return agents.get(id);
+
+    }
 
 	@Override
 	public List<Airport> findAirportsByCity(String city) {
@@ -326,8 +363,4 @@ public class ReservationSystemRepositoryImpl implements ReservationSystemReposit
 		return null;
 	}
 
-    @Override
-    public Passenger findPassengerById(int id) {
-        return passengers.get(id);
-    }
 }

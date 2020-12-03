@@ -19,4 +19,10 @@ public class Agent extends Person {
 
     }
 
+    public List<Passenger> getPassengerList(){
+
+        return this.passengerList;
+
+    }
+
 }

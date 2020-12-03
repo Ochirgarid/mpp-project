@@ -10,6 +10,7 @@ import edu.miu.cs.cs401.project.domain.Flight;
 import edu.miu.cs.cs401.project.domain.Passenger;
 import edu.miu.cs.cs401.project.domain.Reservation;
 import edu.miu.cs.cs401.project.repository.RepositoryFactory;
+import edu.miu.cs.cs401.project.repository.ReservationSystemRepository;
 
 public class ReservationSystemFacadeImpl implements ReservationSystemFacade {
 
@@ -64,9 +65,12 @@ public class ReservationSystemFacadeImpl implements ReservationSystemFacade {
 	}
 
 	@Override
-	public List<Passenger> findPassengersByAgentCode(String agentCode) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Passenger> findPassengersByAgentCode(int agentCode) {
+		
+		ReservationSystemRepository repo = RepositoryFactory.getReservationSystemRepository();
+		
+		return repo.findAgentById(agentCode).getPassengerList();
+
 	}
 
 	@Override
